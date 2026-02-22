@@ -2,13 +2,42 @@
   Main Collection Variants section
 
   Loops through every product in the collection and expands each variant into its own card.
-  Each card displays:
-    - The variant's featured image (falls back to the product's featured media)
-    - The product title
-    - The variant option name(s) and value(s) as a subtitle
-    - The variant metafield custom.scent_card_description as a second subtitle
-    - The variant price
+  Blocks control what is rendered inside each card (Image, Title, Variant option,
+  Scent description, Price) and can be reordered or removed in the theme editor.
 {% endcomment %}
+
+{% liquid
+  # Resolve card min-width using the same logic as util-product-grid-card-size
+  if section.settings.layout_type == 'organic'
+    if section.settings.product_grid_width == 'centered'
+      assign card_min_width = '250px'
+    else
+      assign card_min_width = '260px'
+    endif
+  elsif section.settings.product_grid_width == 'centered'
+    case section.settings.product_card_size
+      when 'small'
+        assign card_min_width = '165px'
+      when 'large'
+        assign card_min_width = '340px'
+      when 'extra-large'
+        assign card_min_width = '480px'
+      else
+        assign card_min_width = '250px'
+    endcase
+  else
+    case section.settings.product_card_size
+      when 'small'
+        assign card_min_width = '180px'
+      when 'large'
+        assign card_min_width = '365px'
+      when 'extra-large'
+        assign card_min_width = '530px'
+      else
+        assign card_min_width = '260px'
+    endcase
+  endif
+%}
 
 {% style %}
   .variant-grid--{{ section.id }} {
@@ -24,6 +53,13 @@
     gap: {{ section.settings.columns_gap_vertical | at_most: 12 }}px {{ section.settings.columns_gap_horizontal | at_most: 12 }}px;
   }
 
+  @media screen and (min-width: 750px) {
+    .variant-grid--{{ section.id }} {
+      grid-template-columns: repeat(auto-fill, minmax({{ card_min_width }}, 1fr));
+      gap: {{ section.settings.columns_gap_vertical }}px {{ section.settings.columns_gap_horizontal }}px;
+    }
+  }
+
   .variant-section-inner--{{ section.id }} {
     {% if section.settings.product_grid_width == 'centered' and section.settings.full_width_on_mobile == false %}
       padding-inline-start: calc(var(--page-margin) + {{ section.settings['padding-inline-start'] }}px);
@@ -35,11 +71,6 @@
   }
 
   @media screen and (min-width: 750px) {
-    .variant-grid--{{ section.id }} {
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: {{ section.settings.columns_gap_vertical }}px {{ section.settings.columns_gap_horizontal }}px;
-    }
-
     .variant-section-inner--{{ section.id }} {
       {% if section.settings.product_grid_width == 'centered' %}
         padding-inline-start: calc(var(--page-margin) + {{ section.settings['padding-inline-start'] }}px);
@@ -49,6 +80,18 @@
         padding-inline-end: {{ section.settings['padding-inline-end'] }}px;
       {% endif %}
     }
+  }
+
+  .variant-card-item--{{ section.id }} {
+    border-radius: {{ section.settings.card_border_radius }}px;
+    overflow: hidden;
+    {% if section.settings.card_border == 'solid' %}
+      border: {{ section.settings.card_border_width }}px solid rgb(var(--color-foreground-rgb) / {{ section.settings.card_border_opacity | times: 0.01 }});
+    {% endif %}
+    padding-block-start: {{ section.settings.card_padding_top }}px;
+    padding-block-end: {{ section.settings.card_padding_bottom }}px;
+    padding-inline-start: {{ section.settings.card_padding_left }}px;
+    padding-inline-end: {{ section.settings.card_padding_right }}px;
   }
 {% endstyle %}
 
@@ -79,50 +122,96 @@
               {% assign variant_image = variant.featured_image | default: product.featured_media.preview_image %}
               {% assign scent_desc = variant.metafields.custom.scent_card_description %}
 
-              <li>
-                <a href="{{ variant.url }}" class="variant-card">
+              <li
+                class="
+                  variant-card-item--{{ section.id }}
+                  {% if section.settings.card_inherit_color_scheme == false %} color-{{ section.settings.card_color_scheme }}{% endif %}
+                "
+              >
+                <a href="{{ variant.url }}" class="variant-card" style="gap: {{ section.settings.card_gap }}px;">
 
-                  {% comment %} Variant image {% endcomment %}
-                  <div class="variant-card__media">
-                    {% if variant_image %}
-                      {{
-                        variant_image
-                        | image_url: width: 800
-                        | image_tag:
-                          loading: 'lazy',
-                          alt: variant_image.alt | default: product.title,
-                          sizes: '(min-width: 750px) 25vw, 50vw',
-                          widths: '275, 400, 550, 800'
-                      }}
-                    {% else %}
-                      {{ 'product-1' | placeholder_svg_tag: 'variant-card__placeholder' }}
-                    {% endif %}
-                  </div>
+                  {% for block in section.blocks %}
+                    {% case block.type %}
 
-                  {% comment %} Product title {% endcomment %}
-                  <p class="variant-card__title">{{ product.title }}</p>
+                      {% when 'variant-gallery' %}
+                        {% liquid
+                          case block.settings.image_ratio
+                            when 'portrait'
+                              assign img_ratio = '4 / 5'
+                            when 'square'
+                              assign img_ratio = '1 / 1'
+                            when 'landscape'
+                              assign img_ratio = '16 / 9'
+                            else
+                              assign img_ratio = variant_image.aspect_ratio | default: '0.8'
+                          endcase
+                        %}
+                        <div
+                          class="variant-card__media"
+                          style="
+                            aspect-ratio: {{ img_ratio }};
+                            border-radius: {{ block.settings.border_radius }}px;
+                            {% if block.settings.border == 'solid' %}border: {{ block.settings.border_width }}px solid rgb(var(--color-foreground-rgb) / {{ block.settings.border_opacity | times: 0.01 }});{% endif %}
+                            padding-block-start: {{ block.settings['padding-block-start'] }}px;
+                            padding-block-end: {{ block.settings['padding-block-end'] }}px;
+                            padding-inline-start: {{ block.settings['padding-inline-start'] }}px;
+                            padding-inline-end: {{ block.settings['padding-inline-end'] }}px;
+                          "
+                          {{ block.shopify_attributes }}
+                        >
+                          {% if variant_image %}
+                            {{
+                              variant_image
+                              | image_url: width: 800
+                              | image_tag:
+                                loading: 'lazy',
+                                alt: variant_image.alt | default: product.title,
+                                sizes: '(min-width: 750px) 25vw, 50vw',
+                                widths: '275, 400, 550, 800'
+                            }}
+                          {% else %}
+                            {{ 'product-1' | placeholder_svg_tag: 'variant-card__placeholder' }}
+                          {% endif %}
+                        </div>
 
-                  {% comment %} Variant option subtitle – e.g. "Scent: Vanilla" {% endcomment %}
-                  {% for option in product.options %}
-                    {% unless product.options.size == 1 and variant.options[forloop.index0] == 'Default Title' %}
-                      <p class="variant-card__subtitle">{{ option }}: {{ variant.options[forloop.index0] }}</p>
-                    {% endunless %}
+                      {% when 'variant-title' %}
+                        <p
+                          class="variant-card__title"
+                          style="
+                            text-align: {{ block.settings.alignment }};
+                            padding-block-start: {{ block.settings['padding-block-start'] }}px;
+                          "
+                          {{ block.shopify_attributes }}
+                        >{{ product.title }}</p>
+
+                      {% when 'variant-option' %}
+                        {% for option in product.options %}
+                          {% unless product.options.size == 1 and variant.options[forloop.index0] == 'Default Title' %}
+                            <p class="variant-card__subtitle" {{ block.shopify_attributes }}>
+                              {{ option }}: {{ variant.options[forloop.index0] }}
+                            </p>
+                          {% endunless %}
+                        {% endfor %}
+
+                      {% when 'variant-description' %}
+                        {% if scent_desc != blank %}
+                          <p class="variant-card__description" {{ block.shopify_attributes }}>
+                            {{ scent_desc.value | default: scent_desc }}
+                          </p>
+                        {% endif %}
+
+                      {% when 'variant-price' %}
+                        <p class="variant-card__price" {{ block.shopify_attributes }}>
+                          {% if block.settings.show_sale_price_first and variant.compare_at_price > variant.price %}
+                            <span class="variant-card__price-sale">{{ variant.price | money }}</span>
+                            <span class="variant-card__price-compare">{{ variant.compare_at_price | money }}</span>
+                          {% else %}
+                            {{ variant.price | money }}
+                          {% endif %}
+                        </p>
+
+                    {% endcase %}
                   {% endfor %}
-
-                  {% comment %} Scent card description metafield {% endcomment %}
-                  {% if scent_desc != blank %}
-                    <p class="variant-card__description">{{ scent_desc.value | default: scent_desc }}</p>
-                  {% endif %}
-
-                  {% comment %} Price {% endcomment %}
-                  <p class="variant-card__price">
-                    {% if variant.compare_at_price > variant.price %}
-                      <span class="variant-card__price-sale">{{ variant.price | money }}</span>
-                      <span class="variant-card__price-compare">{{ variant.compare_at_price | money }}</span>
-                    {% else %}
-                      {{ variant.price | money }}
-                    {% endif %}
-                  </p>
 
                 </a>
               </li>
@@ -140,7 +229,6 @@
   .variant-card {
     display: flex;
     flex-direction: column;
-    gap: 4px;
     text-decoration: none;
     color: inherit;
   }
@@ -152,9 +240,8 @@
 
   .variant-card__media img {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
-    aspect-ratio: 4 / 5;
     object-fit: cover;
   }
 
@@ -169,7 +256,6 @@
     font-size: 1rem;
     color: var(--color-foreground);
     margin: 0;
-    padding-block-start: 4px;
   }
 
   .variant-card__subtitle {
@@ -209,20 +295,185 @@
   "enabled_on": {
     "templates": ["collection"]
   },
+  "blocks": [
+    {
+      "type": "variant-gallery",
+      "name": "t:names.product_image",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:content.resource_reference_product_media"
+        },
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "label": "t:settings.aspect_ratio",
+          "options": [
+            { "value": "adapt", "label": "t:options.auto" },
+            { "value": "portrait", "label": "t:options.portrait" },
+            { "value": "square", "label": "t:options.square" },
+            { "value": "landscape", "label": "t:options.landscape" }
+          ],
+          "default": "adapt"
+        },
+        {
+          "type": "header",
+          "content": "t:content.borders"
+        },
+        {
+          "type": "select",
+          "id": "border",
+          "label": "t:settings.style",
+          "options": [
+            { "value": "none", "label": "t:options.none" },
+            { "value": "solid", "label": "t:options.solid" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "range",
+          "id": "border_width",
+          "min": 0, "max": 100, "step": 1, "unit": "px",
+          "label": "t:settings.thickness",
+          "default": 1,
+          "visible_if": "{{ block.settings.border != 'none' }}"
+        },
+        {
+          "type": "range",
+          "id": "border_opacity",
+          "min": 0, "max": 100, "step": 1, "unit": "%",
+          "label": "t:settings.opacity",
+          "default": 100,
+          "visible_if": "{{ block.settings.border != 'none' }}"
+        },
+        {
+          "type": "range",
+          "id": "border_radius",
+          "label": "t:settings.border_radius",
+          "min": 0, "max": 32, "step": 1,
+          "default": 0
+        },
+        {
+          "type": "header",
+          "content": "t:content.padding"
+        },
+        {
+          "type": "range",
+          "id": "padding-block-start",
+          "label": "t:settings.top",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-block-end",
+          "label": "t:settings.bottom",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-inline-start",
+          "label": "t:settings.left",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-inline-end",
+          "label": "t:settings.right",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        }
+      ]
+    },
+    {
+      "type": "variant-title",
+      "name": "t:names.product_title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "t:settings.alignment",
+          "options": [
+            { "value": "left", "label": "t:options.left" },
+            { "value": "center", "label": "t:options.center" },
+            { "value": "right", "label": "t:options.right" }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "header",
+          "content": "t:content.padding"
+        },
+        {
+          "type": "range",
+          "id": "padding-block-start",
+          "label": "t:settings.top",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 4
+        }
+      ]
+    },
+    {
+      "type": "variant-option",
+      "name": "Variant option",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "variant-description",
+      "name": "Scent description",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "variant-price",
+      "name": "t:names.price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_sale_price_first",
+          "label": "t:settings.show_sale_price_first",
+          "default": true
+        }
+      ]
+    }
+  ],
   "settings": [
+    {
+      "type": "select",
+      "id": "layout_type",
+      "label": "t:settings.type",
+      "options": [
+        { "value": "grid", "label": "t:options.grid" },
+        { "value": "organic", "label": "t:options.editorial" }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "select",
+      "id": "product_card_size",
+      "label": "t:settings.card_size",
+      "options": [
+        { "value": "small", "label": "t:options.small" },
+        { "value": "medium", "label": "t:options.medium" },
+        { "value": "large", "label": "t:options.large" },
+        { "value": "extra-large", "label": "t:options.extra_large" }
+      ],
+      "default": "medium",
+      "visible_if": "{{ section.settings.layout_type == 'grid' }}"
+    },
     {
       "type": "select",
       "id": "mobile_product_card_size",
       "label": "t:settings.mobile_card_size",
       "options": [
-        {
-          "value": "small",
-          "label": "t:options.small"
-        },
-        {
-          "value": "large",
-          "label": "t:options.large"
-        }
+        { "value": "small", "label": "t:options.small" },
+        { "value": "large", "label": "t:options.large" }
       ],
       "default": "small"
     },
@@ -235,14 +486,8 @@
       "id": "product_grid_width",
       "label": "t:settings.width",
       "options": [
-        {
-          "value": "centered",
-          "label": "t:options.page"
-        },
-        {
-          "value": "full-width",
-          "label": "t:options.full"
-        }
+        { "value": "centered", "label": "t:options.page" },
+        { "value": "full-width", "label": "t:options.full" }
       ],
       "default": "centered"
     },
@@ -257,40 +502,121 @@
       "type": "range",
       "id": "columns_gap_horizontal",
       "label": "t:settings.horizontal_gap",
-      "min": 0,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
+      "min": 0, "max": 50, "step": 1, "unit": "px",
       "default": 16
     },
     {
       "type": "range",
       "id": "columns_gap_vertical",
       "label": "t:settings.vertical_gap",
-      "min": 0,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
+      "min": 0, "max": 50, "step": 1, "unit": "px",
       "default": 16
     },
     {
       "type": "range",
       "id": "padding-inline-start",
       "label": "t:settings.left_padding",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
+      "min": 0, "max": 100, "step": 1, "unit": "px",
       "default": 0
     },
     {
       "type": "range",
       "id": "padding-inline-end",
       "label": "t:settings.right_padding",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
+      "min": 0, "max": 100, "step": 1, "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:content.product_card"
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "t:settings.vertical_gap",
+      "min": 0, "max": 50, "step": 1, "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "card_inherit_color_scheme",
+      "label": "t:settings.inherit_color_scheme",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "card_color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ section.settings.card_inherit_color_scheme == false }}"
+    },
+    {
+      "type": "header",
+      "content": "t:content.borders"
+    },
+    {
+      "type": "select",
+      "id": "card_border",
+      "label": "t:settings.style",
+      "options": [
+        { "value": "none", "label": "t:options.none" },
+        { "value": "solid", "label": "t:options.solid" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "card_border_width",
+      "min": 0, "max": 100, "step": 1, "unit": "px",
+      "label": "t:settings.thickness",
+      "default": 1,
+      "visible_if": "{{ section.settings.card_border != 'none' }}"
+    },
+    {
+      "type": "range",
+      "id": "card_border_opacity",
+      "min": 0, "max": 100, "step": 1, "unit": "%",
+      "label": "t:settings.opacity",
+      "default": 100,
+      "visible_if": "{{ section.settings.card_border != 'none' }}"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "t:settings.border_radius",
+      "min": 0, "max": 32, "step": 1,
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "card_padding_top",
+      "label": "t:settings.top",
+      "min": 0, "max": 50, "step": 1, "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_padding_bottom",
+      "label": "t:settings.bottom",
+      "min": 0, "max": 50, "step": 1, "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_padding_left",
+      "label": "t:settings.left",
+      "min": 0, "max": 50, "step": 1, "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_padding_right",
+      "label": "t:settings.right",
+      "min": 0, "max": 50, "step": 1, "unit": "px",
       "default": 0
     },
     {
@@ -307,20 +633,14 @@
       "type": "range",
       "id": "padding-block-start",
       "label": "t:settings.top_padding",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
+      "min": 0, "max": 100, "step": 1, "unit": "px",
       "default": 0
     },
     {
       "type": "range",
       "id": "padding-block-end",
       "label": "t:settings.bottom_padding",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
+      "min": 0, "max": 100, "step": 1, "unit": "px",
       "default": 32
     }
   ],
