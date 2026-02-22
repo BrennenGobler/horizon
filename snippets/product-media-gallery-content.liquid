@@ -31,6 +31,26 @@
     assign variant_images = selected_product.images | where: 'attached_to_variant?', true | map: 'src'
   endif
 
+  # Collect all unique variant option values (lowercase) for name-based image filtering
+  assign all_variant_option_values = '' | split: ','
+  for variant in selected_product.variants
+    for option in variant.options
+      assign option_lower = option | downcase | strip
+      unless all_variant_option_values contains option_lower
+        assign option_temp = option_lower | split: '~~~'
+        assign all_variant_option_values = all_variant_option_values | concat: option_temp
+      endunless
+    endfor
+  endfor
+
+  # Get the selected variant's option values (lowercase) for comparison
+  assign selected_variant_options = '' | split: ','
+  for opt in selected_product.selected_or_first_available_variant.options
+    assign opt_lower = opt | downcase | strip
+    assign opt_temp = opt_lower | split: '~~~'
+    assign selected_variant_options = selected_variant_options | concat: opt_temp
+  endfor
+
   if block_settings.slideshow_controls_style == 'thumbnails'
     assign controls_on_media = false
   else
@@ -109,12 +129,53 @@
       endif
 
       if media.id != selected_variant_media.id
-        assign found_media = selected_product.media | where: 'id', media.id
-        assign sorted_media = sorted_media | concat: found_media
+        # Filter by variant name in image alt text (image name)
+        assign media_name_lower = media.alt | downcase
+        assign has_other_variant_name = false
+        for variant_value in all_variant_option_values
+          if media_name_lower contains variant_value
+            assign is_selected_option = false
+            for selected_opt in selected_variant_options
+              if selected_opt == variant_value
+                assign is_selected_option = true
+              endif
+            endfor
+            unless is_selected_option
+              assign has_other_variant_name = true
+            endunless
+          endif
+        endfor
+
+        unless has_other_variant_name
+          assign found_media = selected_product.media | where: 'id', media.id
+          assign sorted_media = sorted_media | concat: found_media
+        endunless
       endif
     endfor
   else
-    assign sorted_media = selected_product.media
+    # No featured variant media — filter all media by variant name
+    for media in selected_product.media
+      assign media_name_lower = media.alt | downcase
+      assign has_other_variant_name = false
+      for variant_value in all_variant_option_values
+        if media_name_lower contains variant_value
+          assign is_selected_option = false
+          for selected_opt in selected_variant_options
+            if selected_opt == variant_value
+              assign is_selected_option = true
+            endif
+          endfor
+          unless is_selected_option
+            assign has_other_variant_name = true
+          endunless
+        endif
+      endfor
+
+      unless has_other_variant_name
+        assign found_media = selected_product.media | where: 'id', media.id
+        assign sorted_media = sorted_media | concat: found_media
+      endunless
+    endfor
   endif
   assign has_image_drop = sorted_media | has: 'media_type', 'image'
 
