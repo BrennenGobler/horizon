@@ -48,7 +48,7 @@
           # Determine whether this option has custom_swatch metaobject data on any variant.
           assign has_custom_swatch = false
           for product_option_value in product_option.values
-            if product_option_value.variant.metafields.custom.custom_swatch != blank
+            if product_option_value.variant.metafields.custom.custom_swatch.value != blank
               assign has_custom_swatch = true
               break
             endif
@@ -108,13 +108,13 @@
                 # Resolve the custom_swatch metaobject for this option value's variant.
                 assign custom_swatch = nil
                 if has_custom_swatch and variant_style == 'swatch'
-                  assign custom_swatch = product_option_value.variant.metafields.custom.custom_swatch
+                  assign custom_swatch = product_option_value.variant.metafields.custom.custom_swatch.value
                 endif
 
                 # Use the metaobject name as the accessible label when available.
                 assign swatch_aria_label = product_option_value.name
-                if custom_swatch != blank and custom_swatch.name != blank
-                  assign swatch_aria_label = custom_swatch.name
+                if custom_swatch != blank and custom_swatch.name.value != blank
+                  assign swatch_aria_label = custom_swatch.name.value
                 endif
 
                 if product_option_value.size > longest_value and option_id_attribute
@@ -161,12 +161,12 @@
                     >
                       <span
                         class="custom-swatch__banner"
-                        style="background-color: {{ custom_swatch.color }};"
+                        style="background-color: {{ custom_swatch.color.value | default: custom_swatch.color }};"
                       >
-                        <span class="custom-swatch__name">{{ custom_swatch.name }}</span>
+                        <span class="custom-swatch__name">{{ custom_swatch.name.value | default: custom_swatch.name }}</span>
                       </span>
-                      {% if custom_swatch.description != blank %}
-                        <span class="custom-swatch__description">{{ custom_swatch.description }}</span>
+                      {% if custom_swatch.description.value != blank %}
+                        <span class="custom-swatch__description">{{ custom_swatch.description.value | default: custom_swatch.description }}</span>
                       {% endif %}
                     </span>
                   {% else %}
@@ -281,13 +281,14 @@
     margin: 0;
   }
 
-  /* Remove default label sizing assumptions for large swatches */
+  /* Remove default label sizing/spacing so the swatch card sizes itself */
   .variant-option--custom-swatches .variant-option__button-label {
-    width: var(--custom-swatch-size, 150px);
-    height: var(--custom-swatch-size, 150px);
+    display: inline-flex;
     padding: 0;
     border: none;
     background: none;
+    line-height: 1;
+    vertical-align: top;
   }
 
   /* ── Swatch card ────────────────────────────────────────────────────── */
