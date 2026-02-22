@@ -1,0 +1,246 @@
+{% comment %}
+  Main Collection Variants section
+
+  Loops through every product in the collection and expands each variant into its own card.
+  Each card displays:
+    - The variant's featured image (falls back to the product's featured media)
+    - The product title
+    - The variant option name(s) and value(s) as a subtitle
+    - The variant metafield custom.scent_card_description as a second subtitle
+    - The variant price
+{% endcomment %}
+
+{% style %}
+  .variant-grid--{{ section.id }} {
+    display: grid;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: {{ section.settings.columns_gap_vertical | at_most: 12 }}px {{ section.settings.columns_gap_horizontal | at_most: 12 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .variant-grid--{{ section.id }} {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: {{ section.settings.columns_gap_vertical }}px {{ section.settings.columns_gap_horizontal }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+
+<div
+  class="section color-{{ section.settings.color_scheme }}"
+  style="
+    padding-block-start: {{ section.settings['padding-block-start'] }}px;
+    padding-block-end: {{ section.settings['padding-block-end'] }}px;
+  "
+>
+  <div style="padding-inline: var(--page-margin);">
+    {% paginate collection.products by 24 %}
+      {% if collection.products_count == 0 %}
+        <div class="main-collection-grid__empty">
+          <h2 class="main-collection-grid__empty-title h2">
+            {{ 'content.no_products_found' | t }}
+          </h2>
+          <p>
+            {{ 'content.use_fewer_filters_html' | t: link: collection.url, class: 'main-collection-grid__empty-link' }}
+          </p>
+        </div>
+      {% else %}
+        <ul class="variant-grid--{{ section.id }}" role="list">
+          {% for product in collection.products %}
+            {% for variant in product.variants %}
+              {% assign variant_image = variant.featured_image | default: product.featured_media.preview_image %}
+              {% assign scent_desc = variant.metafields.custom.scent_card_description %}
+
+              <li>
+                <a href="{{ variant.url }}" class="variant-card">
+
+                  {% comment %} Variant image {% endcomment %}
+                  <div class="variant-card__media">
+                    {% if variant_image %}
+                      {{
+                        variant_image
+                        | image_url: width: 800
+                        | image_tag:
+                          loading: 'lazy',
+                          alt: variant_image.alt | default: product.title,
+                          sizes: '(min-width: 750px) 25vw, 50vw',
+                          widths: '275, 400, 550, 800'
+                      }}
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'variant-card__placeholder' }}
+                    {% endif %}
+                  </div>
+
+                  {% comment %} Product title {% endcomment %}
+                  <p class="variant-card__title">{{ product.title }}</p>
+
+                  {% comment %} Variant option subtitle – e.g. "Scent: Vanilla" {% endcomment %}
+                  {% for option in product.options %}
+                    {% unless product.options.size == 1 and variant.options[forloop.index0] == 'Default Title' %}
+                      <p class="variant-card__subtitle">{{ option }}: {{ variant.options[forloop.index0] }}</p>
+                    {% endunless %}
+                  {% endfor %}
+
+                  {% comment %} Scent card description metafield {% endcomment %}
+                  {% if scent_desc != blank %}
+                    <p class="variant-card__description">{{ scent_desc.value | default: scent_desc }}</p>
+                  {% endif %}
+
+                  {% comment %} Price {% endcomment %}
+                  <p class="variant-card__price">
+                    {% if variant.compare_at_price > variant.price %}
+                      <span class="variant-card__price-sale">{{ variant.price | money }}</span>
+                      <span class="variant-card__price-compare">{{ variant.compare_at_price | money }}</span>
+                    {% else %}
+                      {{ variant.price | money }}
+                    {% endif %}
+                  </p>
+
+                </a>
+              </li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+
+        {% render 'pagination-controls', paginate: paginate %}
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .variant-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .variant-card__media {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .variant-card__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .variant-card__placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: rgb(var(--color-foreground-rgb) / var(--opacity-5));
+  }
+
+  .variant-card__title {
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    color: var(--color-foreground);
+    margin: 0;
+    padding-block-start: 4px;
+  }
+
+  .variant-card__subtitle {
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    color: var(--color-foreground);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .variant-card__description {
+    font-family: var(--font-body--family);
+    font-size: 0.875rem;
+    color: var(--color-foreground);
+    opacity: 0.7;
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  .variant-card__price {
+    font-family: var(--font-body--family);
+    font-size: 1rem;
+    color: var(--color-foreground);
+    margin: 0;
+  }
+
+  .variant-card__price-compare {
+    text-decoration: line-through;
+    opacity: 0.6;
+    margin-inline-start: 4px;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Variant Collection",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_gap_horizontal",
+      "label": "Horizontal gap",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "columns_gap_vertical",
+      "label": "Vertical gap",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    }
+  ],
+  "presets": []
+}
+{% endschema %}
