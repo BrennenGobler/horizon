@@ -77,7 +77,7 @@
     "variant_swatch_height": 34,
     "variant_swatch_radius": 32,
     "variant_button_border_width": 1,
-    "variant_button_radius": 14,
+    "variant_button_radius": 2,
     "variant_button_width": "equal-width-buttons",
     "button_font_weight_secondary": "default",
     "content_for_index": [],
@@ -115,10 +115,10 @@
           "variant_hover_border_color": "#e6e6e6",
           "selected_variant_background_color": "#000000",
           "selected_variant_text_color": "#ffffff",
-          "selected_variant_border_color": "#000000",
+          "selected_variant_border_color": "rgba(0,0,0,0)",
           "selected_variant_hover_background_color": "#1a1a1a",
           "selected_variant_hover_text_color": "#ffffff",
-          "selected_variant_hover_border_color": "#1a1a1a"
+          "selected_variant_hover_border_color": "rgba(0,0,0,0)"
         }
       },
       "scheme-2": {
