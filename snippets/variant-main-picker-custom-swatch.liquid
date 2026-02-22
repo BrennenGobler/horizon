@@ -92,7 +92,7 @@
         {%- elsif variant_style == 'swatch' or block_settings.variant_style == 'buttons' -%}
           {%- assign fieldset_index = forloop.index0 -%}
           <fieldset
-            class="variant-option variant-option--buttons{% if variant_style == 'swatch' %} variant-option--swatches{% else %} variant-option--{{ settings.variant_button_width }}{% endif %}"
+            class="variant-option variant-option--buttons{% if variant_style == 'swatch' %}{% if has_custom_swatch %} variant-option--custom-swatches{% else %} variant-option--swatches{% endif %}{% else %} variant-option--{{ settings.variant_button_width }}{% endif %}"
             data-fieldset-index="{{ fieldset_index }}"
             ref="fieldsets[]"
             {{ option_id_attribute }}
@@ -151,18 +151,24 @@
                 >
                 {% if variant_style == 'swatch' %}
                   {% if custom_swatch != blank %}
-                    {%- comment -%}
-                      Render a color swatch from the custom_swatch metaobject.
-                      color       → CSS-compatible hex value (e.g. #ff0000) used as the swatch background.
-                      description → optional tooltip shown on hover.
-                    {%- endcomment -%}
                     <span
-                      class="swatch swatch--unscaled"
-                      style="--swatch-background: {{ custom_swatch.color }};"
+                      class="custom-swatch"
+                      style="
+                        --custom-swatch-size: {{ block_settings.custom_swatch_size }}px;
+                        --custom-swatch-name-color: {{ block_settings.custom_swatch_name_color }};
+                      "
+                      aria-hidden="true"
+                    >
+                      <span
+                        class="custom-swatch__banner"
+                        style="background-color: {{ custom_swatch.color }};"
+                      >
+                        <span class="custom-swatch__name">{{ custom_swatch.name }}</span>
+                      </span>
                       {% if custom_swatch.description != blank %}
-                        title="{{ custom_swatch.description | escape }}"
+                        <span class="custom-swatch__description">{{ custom_swatch.description }}</span>
                       {% endif %}
-                    ></span>
+                    </span>
                   {% else %}
                     {%- liquid
                       assign featured_media = product_option_value.variant.featured_media
@@ -263,3 +269,87 @@
     </form>
   </variant-picker>
 {% endunless %}
+
+{% stylesheet %}
+  /* ── Custom swatch fieldset ─────────────────────────────────────────── */
+  .variant-option--custom-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-sm);
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Remove default label sizing assumptions for large swatches */
+  .variant-option--custom-swatches .variant-option__button-label {
+    width: var(--custom-swatch-size, 150px);
+    height: var(--custom-swatch-size, 150px);
+    padding: 0;
+    border: none;
+    background: none;
+  }
+
+  /* ── Swatch card ────────────────────────────────────────────────────── */
+  .custom-swatch {
+    display: flex;
+    flex-direction: column;
+    width: var(--custom-swatch-size, 150px);
+    height: var(--custom-swatch-size, 150px);
+    border: var(--style-border-width-inputs, 1px) solid var(--color-border);
+    border-radius: var(--style-border-radius-inputs, 4px);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.15s ease, outline-offset 0.15s ease;
+  }
+
+  /* Color banner — fills remaining space above description */
+  .custom-swatch__banner {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-sm, 8px);
+    min-height: 0;
+  }
+
+  /* Name text sits on top of the color banner */
+  .custom-swatch__name {
+    color: var(--custom-swatch-name-color, #ffffff);
+    font-size: var(--font-paragraph-small--size, 0.75rem);
+    font-weight: var(--font-weight-semibold, 600);
+    text-align: center;
+    line-height: 1.25;
+    word-break: break-word;
+  }
+
+  /* Description sits below the banner, inside the square */
+  .custom-swatch__description {
+    flex-shrink: 0;
+    padding: var(--padding-2xs, 4px) var(--padding-sm, 8px);
+    font-size: var(--font-paragraph-small--size, 0.75rem);
+    line-height: 1.25;
+    text-align: center;
+    color: var(--color-foreground);
+    background-color: var(--color-background);
+    overflow: hidden;
+  }
+
+  /* ── States ─────────────────────────────────────────────────────────── */
+
+  /* Hover */
+  .variant-option--custom-swatches .variant-option__button-label:hover .custom-swatch {
+    border-color: var(--color-variant-hover-border, currentcolor);
+  }
+
+  /* Selected */
+  .variant-option--custom-swatches .variant-option__button-label:has(input:checked) .custom-swatch {
+    outline: 2px solid currentcolor;
+    outline-offset: 2px;
+  }
+
+  /* Unavailable */
+  .variant-option--custom-swatches .variant-option__button-label:has(input[aria-disabled="true"]) .custom-swatch {
+    opacity: 0.45;
+  }
+{% endstylesheet %}
