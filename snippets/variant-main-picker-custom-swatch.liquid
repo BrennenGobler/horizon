@@ -159,11 +159,12 @@
                       <span class="custom-swatch__name">{{ custom_swatch.name.value | default: custom_swatch.name }}</span>
                       {% if custom_swatch.description != blank %}
                         {%- liquid
-                          # Shopify rich_text metaobject fields output their JSON structure.
-                          # Extract plain text by splitting on the leaf "value" key.
-                          assign _desc_raw = custom_swatch.description
-                          if _desc_raw contains '"type":"text"'
-                            assign _desc_parts = _desc_raw | split: '"value":"'
+                          # Shopify rich_text metaobject fields return their JSON AST when templated.
+                          # Force string coercion first (append: ''), then split on the leaf "value"
+                          # key to extract plain text without relying on the Drop's contains method.
+                          assign _desc_raw = custom_swatch.description | append: ''
+                          assign _desc_parts = _desc_raw | split: '"value":"'
+                          if _desc_parts.size > 1
                             assign _desc_text = _desc_parts.last | split: '"' | first
                           else
                             assign _desc_text = _desc_raw
