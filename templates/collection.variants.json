@@ -92,8 +92,13 @@
     "main": {
       "type": "main-collection-variants",
       "settings": {
+        "mobile_product_card_size": "small",
+        "product_grid_width": "centered",
+        "full_width_on_mobile": true,
         "columns_gap_horizontal": 16,
         "columns_gap_vertical": 24,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0,
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 32

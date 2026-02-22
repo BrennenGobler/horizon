@@ -16,14 +16,38 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    grid-template-columns: repeat(2, 1fr);
+    {% if section.settings.mobile_product_card_size == 'large' %}
+      grid-template-columns: repeat(1, 1fr);
+    {% else %}
+      grid-template-columns: repeat(2, 1fr);
+    {% endif %}
     gap: {{ section.settings.columns_gap_vertical | at_most: 12 }}px {{ section.settings.columns_gap_horizontal | at_most: 12 }}px;
+  }
+
+  .variant-section-inner--{{ section.id }} {
+    {% if section.settings.product_grid_width == 'centered' and section.settings.full_width_on_mobile == false %}
+      padding-inline-start: calc(var(--page-margin) + {{ section.settings['padding-inline-start'] }}px);
+      padding-inline-end: calc(var(--page-margin) + {{ section.settings['padding-inline-end'] }}px);
+    {% else %}
+      padding-inline-start: {{ section.settings['padding-inline-start'] }}px;
+      padding-inline-end: {{ section.settings['padding-inline-end'] }}px;
+    {% endif %}
   }
 
   @media screen and (min-width: 750px) {
     .variant-grid--{{ section.id }} {
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: {{ section.settings.columns_gap_vertical }}px {{ section.settings.columns_gap_horizontal }}px;
+    }
+
+    .variant-section-inner--{{ section.id }} {
+      {% if section.settings.product_grid_width == 'centered' %}
+        padding-inline-start: calc(var(--page-margin) + {{ section.settings['padding-inline-start'] }}px);
+        padding-inline-end: calc(var(--page-margin) + {{ section.settings['padding-inline-end'] }}px);
+      {% else %}
+        padding-inline-start: {{ section.settings['padding-inline-start'] }}px;
+        padding-inline-end: {{ section.settings['padding-inline-end'] }}px;
+      {% endif %}
     }
   }
 {% endstyle %}
@@ -37,7 +61,7 @@
     padding-block-end: {{ section.settings['padding-block-end'] }}px;
   "
 >
-  <div style="padding-inline: var(--page-margin);">
+  <div class="variant-section-inner--{{ section.id }}">
     {% paginate collection.products by 24 %}
       {% if collection.products_count == 0 %}
         <div class="main-collection-grid__empty">
@@ -187,13 +211,52 @@
   },
   "settings": [
     {
+      "type": "select",
+      "id": "mobile_product_card_size",
+      "label": "t:settings.mobile_card_size",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:options.small"
+        },
+        {
+          "value": "large",
+          "label": "t:options.large"
+        }
+      ],
+      "default": "small"
+    },
+    {
       "type": "header",
-      "content": "Layout"
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "product_grid_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "centered",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "centered"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_on_mobile",
+      "label": "t:settings.full_width_on_mobile",
+      "default": true,
+      "visible_if": "{{ section.settings.product_grid_width != 'full-width' }}"
     },
     {
       "type": "range",
       "id": "columns_gap_horizontal",
-      "label": "Horizontal gap",
+      "label": "t:settings.horizontal_gap",
       "min": 0,
       "max": 50,
       "step": 1,
@@ -203,27 +266,47 @@
     {
       "type": "range",
       "id": "columns_gap_vertical",
-      "label": "Vertical gap",
+      "label": "t:settings.vertical_gap",
       "min": 0,
       "max": 50,
       "step": 1,
       "unit": "px",
-      "default": 24
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
     },
     {
       "type": "header",
-      "content": "Section layout"
+      "content": "t:content.section_layout"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:settings.color_scheme",
       "default": "scheme-1"
     },
     {
       "type": "range",
       "id": "padding-block-start",
-      "label": "Top padding",
+      "label": "t:settings.top_padding",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -233,7 +316,7 @@
     {
       "type": "range",
       "id": "padding-block-end",
-      "label": "Bottom padding",
+      "label": "t:settings.bottom_padding",
       "min": 0,
       "max": 100,
       "step": 1,
