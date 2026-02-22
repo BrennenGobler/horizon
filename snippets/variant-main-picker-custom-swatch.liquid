@@ -158,7 +158,18 @@
                       {% endif %}
                       <span class="custom-swatch__name">{{ custom_swatch.name.value | default: custom_swatch.name }}</span>
                       {% if custom_swatch.description != blank %}
-                        <span class="custom-swatch__description">{{ custom_swatch.description }}</span>
+                        {%- liquid
+                          # Shopify rich_text metaobject fields output their JSON structure.
+                          # Extract plain text by splitting on the leaf "value" key.
+                          assign _desc_raw = custom_swatch.description
+                          if _desc_raw contains '"type":"text"'
+                            assign _desc_parts = _desc_raw | split: '"value":"'
+                            assign _desc_text = _desc_parts.last | split: '"' | first
+                          else
+                            assign _desc_text = _desc_raw
+                          endif
+                        -%}
+                        <span class="custom-swatch__description">{{ _desc_text }}</span>
                       {% endif %}
                     </span>
                   {% else %}
@@ -273,7 +284,7 @@
     margin: 0;
   }
 
-  /* Let the swatch card size itself — no inherited padding/height from label */
+  /* Let the swatch card size itself — strip inherited padding/border from label */
   .variant-option--custom-swatches .variant-option__button-label {
     display: inline-flex;
     padding: 0;
@@ -285,30 +296,48 @@
 
   /* ── Swatch card ────────────────────────────────────────────────────── */
   .custom-swatch {
+    position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
     width: var(--custom-swatch-size, 150px);
     height: var(--custom-swatch-size, 150px);
-    border: var(--style-border-width-inputs, 1px) solid var(--color-border);
+    padding: var(--padding-sm, 8px);
     border-radius: var(--style-border-radius-inputs, 4px);
+    /* overflow:hidden clips child content to the border-radius but causes the
+       CSS border to be partially obscured at corners. Instead, the border is
+       rendered via a ::after pseudo-element that overlays on top. */
     overflow: hidden;
     cursor: pointer;
-    transition: border-color 0.15s ease;
   }
 
-  /* Icon image — fills available space above text */
+  /* Border overlay — sits on top of content so it's never clipped by overflow:hidden */
+  .custom-swatch::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: var(--style-border-width-inputs, 1px) solid var(--color-border);
+    pointer-events: none;
+    transition: border-color 0.15s ease, border-width 0.15s ease;
+    z-index: 1;
+  }
+
+  /* Icon — centered, max 50px tall */
   .custom-swatch__icon {
     display: block;
-    width: 100%;
-    flex: 1;
-    min-height: 0;
+    max-height: 50px;
+    width: auto;
+    max-width: 100%;
     object-fit: contain;
+    flex-shrink: 0;
   }
 
   /* Name */
   .custom-swatch__name {
     flex-shrink: 0;
-    padding: var(--padding-2xs, 4px) var(--padding-sm, 8px) 0;
     font-size: var(--font-paragraph-small--size, 0.75rem);
     font-weight: var(--font-weight-semibold, 600);
     text-align: center;
@@ -317,29 +346,30 @@
     word-break: break-word;
   }
 
-  /* Description — below name, inside the square */
+  /* Description */
   .custom-swatch__description {
     flex-shrink: 0;
-    padding: var(--padding-3xs, 2px) var(--padding-sm, 8px) var(--padding-2xs, 4px);
     font-size: var(--font-paragraph-small--size, 0.75rem);
     line-height: 1.2;
     text-align: center;
     color: var(--color-foreground);
-    overflow: hidden;
   }
 
   /* ── States ─────────────────────────────────────────────────────────── */
 
-  /* Hover */
-  .variant-option--custom-swatches .variant-option__button-label:hover .custom-swatch {
+  /* Hover — update pseudo-element border */
+  .variant-option--custom-swatches .variant-option__button-label:hover .custom-swatch::after {
     border-color: var(--color-selected-variant-hover-border, var(--color-foreground));
   }
 
-  /* Selected */
+  /* Selected — thicker border via pseudo-element + outer outline */
   .variant-option--custom-swatches .variant-option__button-label:has(input:checked) .custom-swatch {
-    border-color: var(--color-selected-variant-border, var(--color-foreground));
     outline: 2px solid var(--color-selected-variant-border, var(--color-foreground));
     outline-offset: 2px;
+  }
+
+  .variant-option--custom-swatches .variant-option__button-label:has(input:checked) .custom-swatch::after {
+    border-color: var(--color-selected-variant-border, var(--color-foreground));
   }
 
   /* Unavailable */
