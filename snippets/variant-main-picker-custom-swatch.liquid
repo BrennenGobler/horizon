@@ -98,10 +98,7 @@
             {{ option_id_attribute }}
           >
             <legend>
-              {{ product_option.name | escape -}}
-              {%- if variant_style == 'swatch' -%}
-                <span class="variant-option__swatch-value">{{ product_option.selected_value }}</span>
-              {%- endif %}
+              {{ product_option.name | escape }}
             </legend>
             {%- for product_option_value in product_option.values -%}
               {%- liquid
@@ -153,20 +150,15 @@
                   {% if custom_swatch != blank %}
                     <span
                       class="custom-swatch"
-                      style="
-                        --custom-swatch-size: {{ block_settings.custom_swatch_size }}px;
-                        --custom-swatch-name-color: {{ block_settings.custom_swatch_name_color }};
-                      "
+                      style="--custom-swatch-size: {{ block_settings.custom_swatch_size }}px;"
                       aria-hidden="true"
                     >
-                      <span
-                        class="custom-swatch__banner"
-                        style="background-color: {{ custom_swatch.color.value | default: custom_swatch.color }};"
-                      >
-                        <span class="custom-swatch__name">{{ custom_swatch.name.value | default: custom_swatch.name }}</span>
-                      </span>
-                      {% if custom_swatch.description.value != blank %}
-                        <span class="custom-swatch__description">{{ custom_swatch.description.value | default: custom_swatch.description }}</span>
+                      {% if custom_swatch.icon != blank %}
+                        {{ custom_swatch.icon | image_url: width: block_settings.custom_swatch_size | image_tag: class: 'custom-swatch__icon', loading: 'lazy', alt: '' }}
+                      {% endif %}
+                      <span class="custom-swatch__name">{{ custom_swatch.name.value | default: custom_swatch.name }}</span>
+                      {% if custom_swatch.description != blank %}
+                        <span class="custom-swatch__description">{{ custom_swatch.description }}</span>
                       {% endif %}
                     </span>
                   {% else %}
@@ -281,7 +273,7 @@
     margin: 0;
   }
 
-  /* Remove default label sizing/spacing so the swatch card sizes itself */
+  /* Let the swatch card size itself — no inherited padding/height from label */
   .variant-option--custom-swatches .variant-option__button-label {
     display: inline-flex;
     padding: 0;
@@ -301,38 +293,38 @@
     border-radius: var(--style-border-radius-inputs, 4px);
     overflow: hidden;
     cursor: pointer;
-    transition: border-color 0.15s ease, outline-offset 0.15s ease;
+    transition: border-color 0.15s ease;
   }
 
-  /* Color banner — fills remaining space above description */
-  .custom-swatch__banner {
+  /* Icon image — fills available space above text */
+  .custom-swatch__icon {
+    display: block;
+    width: 100%;
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--padding-sm, 8px);
     min-height: 0;
+    object-fit: contain;
   }
 
-  /* Name text sits on top of the color banner */
+  /* Name */
   .custom-swatch__name {
-    color: var(--custom-swatch-name-color, #ffffff);
+    flex-shrink: 0;
+    padding: var(--padding-2xs, 4px) var(--padding-sm, 8px) 0;
     font-size: var(--font-paragraph-small--size, 0.75rem);
     font-weight: var(--font-weight-semibold, 600);
     text-align: center;
     line-height: 1.25;
+    color: var(--color-foreground);
     word-break: break-word;
   }
 
-  /* Description sits below the banner, inside the square */
+  /* Description — below name, inside the square */
   .custom-swatch__description {
     flex-shrink: 0;
-    padding: var(--padding-2xs, 4px) var(--padding-sm, 8px);
+    padding: var(--padding-3xs, 2px) var(--padding-sm, 8px) var(--padding-2xs, 4px);
     font-size: var(--font-paragraph-small--size, 0.75rem);
-    line-height: 1.25;
+    line-height: 1.2;
     text-align: center;
     color: var(--color-foreground);
-    background-color: var(--color-background);
     overflow: hidden;
   }
 
@@ -340,12 +332,13 @@
 
   /* Hover */
   .variant-option--custom-swatches .variant-option__button-label:hover .custom-swatch {
-    border-color: var(--color-variant-hover-border, currentcolor);
+    border-color: var(--color-selected-variant-hover-border, var(--color-foreground));
   }
 
   /* Selected */
   .variant-option--custom-swatches .variant-option__button-label:has(input:checked) .custom-swatch {
-    outline: 2px solid currentcolor;
+    border-color: var(--color-selected-variant-border, var(--color-foreground));
+    outline: 2px solid var(--color-selected-variant-border, var(--color-foreground));
     outline-offset: 2px;
   }
 
