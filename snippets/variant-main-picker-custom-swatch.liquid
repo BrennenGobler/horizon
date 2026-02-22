@@ -1,0 +1,265 @@
+{%- doc -%}
+  Renders a variant picker with custom metaobject swatch support.
+
+  For each product option, checks whether any variant has a custom.custom_swatch
+  metafield (a reference to a custom_swatch metaobject). When found, that option
+  renders as a swatch fieldset using the metaobject's color, name, and description
+  fields. Options without the metafield fall back to theme swatches or buttons/dropdowns.
+
+  Metaobject fields expected on custom_swatch:
+    color       — color type  → used as the swatch background
+    name        — single-line text → used as the accessible label
+    description — single-line text → shown as a tooltip (title attribute)
+
+  @param {object} product_resource - The product object.
+  @param {object} [block] - The block object (available automatically in block context).
+{%- enddoc -%}
+
+{% assign block_settings = block.settings %}
+
+{% unless product_resource.has_only_default_variant %}
+  {% liquid
+    assign button_background_brightness = section.settings.color_scheme.settings.foreground | color_brightness
+    if button_background_brightness < 105
+      assign strikethrough_color_mix = '#000'
+    else
+      assign strikethrough_color_mix = '#fff'
+    endif
+  %}
+  <variant-picker
+    class="variant-picker spacing-style variant-picker--{{ block_settings.alignment }}"
+    style="--color-strikethrough-mix: {{ strikethrough_color_mix }}; {% render 'spacing-style', settings: block_settings %}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product_resource.id }}"
+    data-block-id="{{ block.id }}"
+    data-product-url="{{ product_resource.url }}"
+    ref="mainVariantPicker"
+    {% if product.id == product_resource.id %}
+      data-template-product-match="true"
+    {% endif %}
+    {{ block.shopify_attributes }}
+    {% if request.visual_preview_mode %}
+      data-shopify-visual-preview
+    {% endif %}
+  >
+    <form class="variant-picker__form">
+      {%- for product_option in product_resource.options_with_values -%}
+        {%- liquid
+          # Determine whether this option has custom_swatch metaobject data on any variant.
+          assign has_custom_swatch = false
+          for product_option_value in product_option.values
+            if product_option_value.variant.metafields.custom.custom_swatch != blank
+              assign has_custom_swatch = true
+              break
+            endif
+          endfor
+
+          assign variant_style = block_settings.variant_style
+
+          if has_custom_swatch and block_settings.show_swatches
+            assign variant_style = 'swatch'
+          elsif block_settings.show_swatches
+            assign swatch_count = product_option.values | map: 'swatch' | compact | size
+            if swatch_count > 0
+              if block_settings.variant_style == 'dropdown'
+                assign variant_style = 'swatch_dropdown'
+              else
+                assign variant_style = 'swatch'
+              endif
+            endif
+          endif
+
+          if variant_style == 'buttons' and settings.variant_button_width == 'equal-width-buttons'
+            assign fieldset_id = section.id | append: '-' | append: product_resource.id | append: '-' | append: product_option.name | handleize
+            assign option_id_attribute = 'data-option-id="' | append: fieldset_id | append: '"'
+            assign longest_value = 0
+          endif
+        -%}
+
+        {%- if product_option.values.size == 1 and variant_style != 'swatch' -%}
+          <div
+            class="variant-option"
+            data-testid="variant-option-single"
+          >
+            {{- product_option.name | escape -}}
+            <span
+              class="variant-option__swatch-value"
+              data-testid="variant-option-single-value"
+            >
+              {{- product_option.selected_value -}}
+            </span>
+          </div>
+        {%- elsif variant_style == 'swatch' or block_settings.variant_style == 'buttons' -%}
+          {%- assign fieldset_index = forloop.index0 -%}
+          <fieldset
+            class="variant-option variant-option--buttons{% if variant_style == 'swatch' %} variant-option--swatches{% else %} variant-option--{{ settings.variant_button_width }}{% endif %}"
+            data-fieldset-index="{{ fieldset_index }}"
+            ref="fieldsets[]"
+            {{ option_id_attribute }}
+          >
+            <legend>
+              {{ product_option.name | escape -}}
+              {%- if variant_style == 'swatch' -%}
+                <span class="variant-option__swatch-value">{{ product_option.selected_value }}</span>
+              {%- endif %}
+            </legend>
+            {%- for product_option_value in product_option.values -%}
+              {%- liquid
+                # Resolve the custom_swatch metaobject for this option value's variant.
+                assign custom_swatch = nil
+                if has_custom_swatch and variant_style == 'swatch'
+                  assign custom_swatch = product_option_value.variant.metafields.custom.custom_swatch
+                endif
+
+                # Use the metaobject name as the accessible label when available.
+                assign swatch_aria_label = product_option_value.name
+                if custom_swatch != blank and custom_swatch.name != blank
+                  assign swatch_aria_label = custom_swatch.name
+                endif
+
+                if product_option_value.size > longest_value and option_id_attribute
+                  assign longest_value = product_option_value.size
+                endif
+              -%}
+              <label
+                class="variant-option__button-label{% if variant_style == 'swatch' %} variant-option__button-label--has-swatch{% endif %}"
+              >
+                <input
+                  type="radio"
+                  name="{{ product_option.name | escape }}-{{ block.id }}-{{ product_resource.id }}"
+                  value="{{ product_option_value | escape }}"
+                  aria-label="{{ swatch_aria_label }}"
+                  {% if product_option_value.available == false %}
+                    aria-disabled="true"
+                  {% endif %}
+                  data-previous-checked="false"
+                  data-fieldset-index="{{ fieldset_index }}"
+                  data-input-index="{{ forloop.index0 }}"
+                  data-input-id="{{ product_option.position }}-{{ forloop.index0 }}"
+                  data-option-value-id="{{ product_option_value.id }}"
+                  data-option-available="{{ product_option_value.available }}"
+                  data-connected-product-url="{{ product_option_value.product_url }}"
+                  {% if product_option_value.variant.id %}
+                    data-variant-id="{{ product_option_value.variant.id }}"
+                  {% endif %}
+                  {% if product_option_value.selected %}
+                    data-current-checked="true"
+                    checked
+                  {% else %}
+                    data-current-checked="false"
+                  {% endif %}
+                >
+                {% if variant_style == 'swatch' %}
+                  {% if custom_swatch != blank %}
+                    {%- comment -%}
+                      Render a color swatch from the custom_swatch metaobject.
+                      color       → CSS-compatible hex value (e.g. #ff0000) used as the swatch background.
+                      description → optional tooltip shown on hover.
+                    {%- endcomment -%}
+                    <span
+                      class="swatch swatch--unscaled"
+                      style="--swatch-background: {{ custom_swatch.color }};"
+                      {% if custom_swatch.description != blank %}
+                        title="{{ custom_swatch.description | escape }}"
+                      {% endif %}
+                    ></span>
+                  {% else %}
+                    {%- liquid
+                      assign featured_media = product_option_value.variant.featured_media
+                      if featured_media == blank and product_option_value.product_url
+                        assign featured_media = product_option_value.variant.product.featured_media
+                      endif
+                    -%}
+                    {% render 'swatch',
+                      swatch: product_option_value.swatch,
+                      variant_image: featured_media,
+                      mode: 'unscaled'
+                    %}
+                  {% endif %}
+                {% else %}
+                  {% if product_option_value.available == true %}
+                    <span
+                      class="variant-option__button-label__pill"
+                      data-key="variant-option-pill"
+                    ></span>
+                  {% endif %}
+                  <span
+                    class="variant-option__button-label__text"
+                    data-key="variant-option-text"
+                  >
+                    {{- product_option_value | escape -}}
+                  </span>
+                {% endif %}
+                {% render 'strikethrough-variant', product_option: product_option_value %}
+              </label>
+            {%- endfor -%}
+            {% if option_id_attribute %}
+              {% style %}
+                [data-option-id="{{ fieldset_id }}"] {
+                  --variant-ch: {{ longest_value | times: 0.65 }}em;
+                }
+              {% endstyle %}
+            {% endif %}
+          </fieldset>
+        {%- elsif block_settings.variant_style == 'dropdowns' -%}
+          {% liquid
+            assign property_being_updated = false
+            if settings.variant_swatch_width != settings.variant_swatch_height
+              assign property_being_updated = true
+              assign new_width = settings.variant_swatch_width | times: 1.0 | divided_by: settings.variant_swatch_height | times: 20
+            endif
+          %}
+
+          <div class="variant-option variant-option--dropdowns">
+            <label for="Option-{{ block.id }}-{{ forloop.index0 }}">{{ product_option.name | escape }}</label>
+            <div
+              class="variant-option__select-wrapper"
+              style="
+                {%- if property_being_updated -%}
+                  --variant-picker-swatch-width: clamp(10px,{{ new_width }}px, 50px);
+                {%- endif -%}
+              "
+            >
+              <select
+                id="Option-{{ block.id }}-{{ forloop.index0 }}"
+                name="options[{{ product_option.name | escape }}]"
+                class="variant-option__select"
+              >
+                {%- for product_option_value in product_option.values -%}
+                  <option
+                    value="{{ product_option_value | escape }}"
+                    data-input-id="{{ product_option.position }}-{{ forloop.index0 }}"
+                    data-option-value-id="{{ product_option_value.id }}"
+                    data-variant-id="{{ product_option_value.variant.id }}"
+                    data-connected-product-url="{{ product_option_value.product_url }}"
+                    {% if product_option_value.selected %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    {% if product_option_value.available == false %}
+                      {{ product_option_value | escape }} - {{ 'content.unavailable' | t }}
+                    {% else %}
+                      {{ product_option_value | escape }}
+                    {% endif %}
+                  </option>
+                {%- endfor -%}
+              </select>
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                class="icon icon-caret"
+                viewBox="0 0 10 6"
+              >
+                {%- render 'icon', icon: 'caret' -%}
+              </svg>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <script type="application/json">
+        {{ product_resource.selected_or_first_available_variant | json }}
+      </script>
+    </form>
+  </variant-picker>
+{% endunless %}
