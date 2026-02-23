@@ -369,6 +369,12 @@
 
   /* ── States ─────────────────────────────────────────────────────────── */
 
+  /* Cancel the theme's default swatch outline on hover and checked */
+  .variant-option--custom-swatches .variant-option__button-label--has-swatch:hover,
+  .variant-option--custom-swatches .variant-option__button-label--has-swatch:has(:checked) {
+    outline: none;
+  }
+
   /* Selected — border color only, same width as default border */
   .variant-option--custom-swatches .variant-option__button-label:has(input:checked) .custom-swatch::after {
     border-color: var(--custom-swatch-active-border-color, var(--color-foreground));
