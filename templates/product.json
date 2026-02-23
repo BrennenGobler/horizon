@@ -474,7 +474,8 @@
         }
       },
       "custom_css": [
-        ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}"
+        ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}",
+        ".slideshow-controls__thumbnails .slideshow-control:is([aria-selected=\"true\"]) {outline: var(--focus-outline-width) solid #FA7D00;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
