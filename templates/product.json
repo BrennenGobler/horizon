@@ -29,7 +29,7 @@
             "aspect_ratio": "1",
             "constrain_to_viewport": true,
             "media_fit": "contain",
-            "media_radius": 4,
+            "media_radius": 2,
             "extend_media": false,
             "zoom": true,
             "video_loop": false,
@@ -112,7 +112,7 @@
                   "type": "text",
                   "name": "t:names.title",
                   "settings": {
-                    "text": "<h1>{{ closest.product.title }}</h1>",
+                    "text": "<h1><strong>Core </strong>{{ closest.product.title }}</h1>",
                     "width": "100%",
                     "max_width": "narrow",
                     "alignment": "left",
@@ -162,11 +162,52 @@
                 "price_tVjtKg"
               ]
             },
+            "group_DqNPwm": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "text_DEwDnn": {
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+                "text": "<p>2oz</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -293,6 +334,7 @@
           },
           "block_order": [
             "group_icgrde",
+            "group_DqNPwm",
             "text_DEwDnn",
             "divider_VJhene",
             "variant_picker_custom_swatch_kmbBff",
@@ -302,6 +344,9 @@
           ]
         }
       },
+      "custom_css": [
+        "strong {font-family: lobster two}"
+      ],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
