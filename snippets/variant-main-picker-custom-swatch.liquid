@@ -369,15 +369,9 @@
 
   /* ── States ─────────────────────────────────────────────────────────── */
 
-  /* Hover — update pseudo-element border */
-  .variant-option--custom-swatches .variant-option__button-label:hover .custom-swatch::after {
-    border-color: var(--color-selected-variant-hover-border, var(--color-foreground));
-  }
-
-  /* Selected — update border color via pseudo-element only, no offset */
+  /* Selected — border color only, same width as default border */
   .variant-option--custom-swatches .variant-option__button-label:has(input:checked) .custom-swatch::after {
     border-color: var(--custom-swatch-active-border-color, var(--color-foreground));
-    border-width: 2px;
   }
 
   /* Unavailable */
