@@ -180,7 +180,7 @@
               "settings": {
                 "variant_style": "buttons",
                 "show_swatches": true,
-                "custom_swatch_size": 100,
+                "custom_swatch_size": 130,
                 "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 8,
