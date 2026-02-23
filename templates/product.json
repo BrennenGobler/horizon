@@ -474,7 +474,7 @@
         }
       },
       "custom_css": [
-        "strong {font-family: lobster two;}"
+        ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
