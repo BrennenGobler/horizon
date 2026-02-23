@@ -116,7 +116,7 @@
                     "width": "100%",
                     "max_width": "narrow",
                     "alignment": "left",
-                    "type_preset": "custom",
+                    "type_preset": "h3",
                     "font": "var(--font-heading--family)",
                     "font_size": "1.5rem",
                     "line_height": "normal",
@@ -229,18 +229,6 @@
               },
               "blocks": {}
             },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
             "variant_picker_custom_swatch_kmbBff": {
               "type": "variant-picker-custom-swatch",
               "name": "Vari Picker-Custom Swatch",
@@ -249,7 +237,7 @@
                 "show_swatches": true,
                 "custom_swatch_size": 140,
                 "alignment": "left",
-                "padding-block-start": 0,
+                "padding-block-start": 6,
                 "padding-block-end": 8,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -465,7 +453,6 @@
             "group_icgrde",
             "group_DqNPwm",
             "text_DEwDnn",
-            "divider_VJhene",
             "variant_picker_custom_swatch_kmbBff",
             "buy_buttons_eYQEYi",
             "text_aEtTtq",
@@ -475,7 +462,7 @@
       },
       "custom_css": [
         ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}",
-        ".slideshow-controls__thumbnails .slideshow-control:is([aria-selected=\"true\"]) {outline: var(--focus-outline-width) solid #FA7D00;}"
+        ".slideshow-controls__thumbnails .slideshow-control:is([aria-selected=\"true\"]) {outline: var(--focus-outline-width) solid #fa7d00;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
