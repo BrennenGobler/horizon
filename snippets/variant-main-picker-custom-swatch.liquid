@@ -28,7 +28,7 @@
   %}
   <variant-picker
     class="variant-picker spacing-style variant-picker--{{ block_settings.alignment }}"
-    style="--color-strikethrough-mix: {{ strikethrough_color_mix }}; {% render 'spacing-style', settings: block_settings %}"
+    style="--color-strikethrough-mix: {{ strikethrough_color_mix }}; {% render 'spacing-style', settings: block_settings %}{% if block_settings.custom_swatch_active_border_color != blank %} --custom-swatch-active-border-color: {{ block_settings.custom_swatch_active_border_color }};{% endif %}"
     data-section-id="{{ section.id }}"
     data-product-id="{{ product_resource.id }}"
     data-block-id="{{ block.id }}"
@@ -150,7 +150,7 @@
                   {% if custom_swatch != blank %}
                     <span
                       class="custom-swatch"
-                      style="--custom-swatch-size: {{ block_settings.custom_swatch_size }}px;"
+                      style="--custom-swatch-height: {{ block_settings.custom_swatch_height }}px;"
                       aria-hidden="true"
                     >
                       {% if custom_swatch.icon != blank %}
@@ -275,24 +275,30 @@
 {% endunless %}
 
 {% stylesheet %}
-  /* ── Custom swatch fieldset ─────────────────────────────────────────── */
+  /* ── Custom swatch fieldset — 3-column grid ─────────────────────────── */
   .variant-option--custom-swatches {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--gap-sm);
     border: 0;
     padding: 0;
     margin: 0;
   }
 
-  /* Let the swatch card size itself — strip inherited padding/border from label */
+  /* Legend spans all three columns */
+  .variant-option--custom-swatches legend {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  /* Label fills its grid cell so the swatch card stretches full width */
   .variant-option--custom-swatches .variant-option__button-label {
-    display: inline-flex;
+    display: flex;
+    width: 100%;
     padding: 0;
     border: none;
     background: none;
     line-height: 1;
-    vertical-align: top;
   }
 
   /* ── Swatch card ────────────────────────────────────────────────────── */
@@ -303,8 +309,8 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
-    width: var(--custom-swatch-size, 150px);
-    height: var(--custom-swatch-size, 150px);
+    width: 100%;
+    min-height: var(--custom-swatch-height, 150px);
     padding: var(--padding-sm, 8px);
     border-radius: var(--style-border-radius-inputs, 4px);
     /* overflow:hidden clips child content to the border-radius but causes the
@@ -345,15 +351,20 @@
     line-height: 1.25;
     color: var(--color-foreground);
     word-break: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
   }
 
-  /* Description */
+  /* Description — wraps inside the swatch card */
   .custom-swatch__description {
-    flex-shrink: 0;
     font-size: var(--font-paragraph-small--size, 0.75rem);
     line-height: 1.2;
     text-align: center;
     color: var(--color-foreground);
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    width: 100%;
   }
 
   /* ── States ─────────────────────────────────────────────────────────── */
@@ -363,14 +374,10 @@
     border-color: var(--color-selected-variant-hover-border, var(--color-foreground));
   }
 
-  /* Selected — thicker border via pseudo-element + outer outline */
-  .variant-option--custom-swatches .variant-option__button-label:has(input:checked) .custom-swatch {
-    outline: 2px solid var(--color-selected-variant-border, var(--color-foreground));
-    outline-offset: 2px;
-  }
-
+  /* Selected — update border color via pseudo-element only, no offset */
   .variant-option--custom-swatches .variant-option__button-label:has(input:checked) .custom-swatch::after {
-    border-color: var(--color-selected-variant-border, var(--color-foreground));
+    border-color: var(--custom-swatch-active-border-color, var(--color-foreground));
+    border-width: 2px;
   }
 
   /* Unavailable */
