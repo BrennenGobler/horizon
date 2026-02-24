@@ -235,7 +235,8 @@
               "settings": {
                 "variant_style": "buttons",
                 "show_swatches": true,
-                "custom_swatch_size": 140,
+                "custom_swatch_height": 150,
+                "custom_swatch_active_border_color": "#fa7d00",
                 "alignment": "left",
                 "padding-block-start": 6,
                 "padding-block-end": 8,
