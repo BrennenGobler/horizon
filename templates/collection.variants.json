@@ -101,14 +101,37 @@
     "main": {
       "type": "main-collection-variants",
       "blocks": {
+        "filters": {
+          "type": "filters",
+          "static": true,
+          "settings": {
+            "enable_filtering": true,
+            "filter_style": "horizontal",
+            "filter_width": "centered",
+            "text_label_case": "default",
+            "show_swatch_label": false,
+            "show_filter_label": false,
+            "enable_sorting": true,
+            "enable_grid_density": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "padding-block-start": 8,
+            "padding-block-end": 8,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "facets_margin_bottom": 8,
+            "facets_margin_right": 20
+          },
+          "blocks": {}
+        },
         "variant-gallery": {
           "type": "variant-gallery",
           "settings": {
-            "image_ratio": "adapt",
+            "image_ratio": "square",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
-            "border_radius": 0,
+            "border_radius": 2,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -118,8 +141,24 @@
         "variant-title": {
           "type": "variant-title",
           "settings": {
+            "width": "100%",
+            "max_width": "normal",
             "alignment": "left",
-            "padding-block-start": 4
+            "type_preset": "custom",
+            "font": "var(--font-heading--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "uppercase",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 4,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           }
         },
         "variant-option": {
@@ -133,11 +172,27 @@
         "variant-price": {
           "type": "variant-price",
           "settings": {
-            "show_sale_price_first": true
+            "show_sale_price_first": true,
+            "show_installments": false,
+            "show_tax_info": false,
+            "type_preset": "h6",
+            "width": "100%",
+            "alignment": "left",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "color": "var(--color-foreground)",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           }
         }
       },
       "block_order": [
+        "filters",
         "variant-gallery",
         "variant-title",
         "variant-option",
@@ -148,23 +203,14 @@
         "layout_type": "grid",
         "product_card_size": "large",
         "mobile_product_card_size": "small",
+        "enable_infinite_scroll": true,
+        "products_per_page": 24,
         "product_grid_width": "full-width",
         "full_width_on_mobile": true,
         "columns_gap_horizontal": 16,
         "columns_gap_vertical": 24,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0,
-        "card_gap": 4,
-        "card_inherit_color_scheme": true,
-        "card_color_scheme": "scheme-1",
-        "card_border": "none",
-        "card_border_width": 1,
-        "card_border_opacity": 100,
-        "card_border_radius": 0,
-        "card_padding_top": 0,
-        "card_padding_bottom": 0,
-        "card_padding_left": 0,
-        "card_padding_right": 0,
+        "padding-inline-start": 24,
+        "padding-inline-end": 24,
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 32
