@@ -16,11 +16,11 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>Your </p>",
+            "text": "<h3>Bald Beard <strong>bros.</strong></h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h3",
+            "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -41,6 +41,9 @@
       },
       "block_order": [
         "text_YLPk4p"
+      ],
+      "custom_css": [
+        "strong {font-family: lobster; text-transform: lowercase;}"
       ],
       "name": "t:names.hero",
       "settings": {
