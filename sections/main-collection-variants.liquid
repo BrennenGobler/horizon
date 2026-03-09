@@ -128,6 +128,16 @@
             {% for variant in product.variants %}
               {% assign variant_image = variant.featured_image | default: product.featured_media.preview_image %}
               {% assign scent_desc = variant.metafields.custom.scent_card_description %}
+              {% liquid
+                assign has_quick_add = false
+                if settings.quick_add and variant.available
+                  assign has_quick_add = true
+                endif
+                assign has_mobile_quick_add = false
+                if has_quick_add and settings.mobile_quick_add
+                  assign has_mobile_quick_add = true
+                endif
+              %}
 
               <li
                 class="
@@ -135,7 +145,22 @@
                   {% if section.settings.card_inherit_color_scheme == false %} color-{{ section.settings.card_color_scheme }}{% endif %}
                 "
               >
-                <a href="{{ variant.url }}" class="variant-card" style="gap: {{ section.settings.card_gap }}px;">
+                <product-card
+                  class="variant-card"
+                  data-product-id="{{ product.id }}"
+                  style="
+                    gap: {{ section.settings.card_gap }}px;
+                    --quick-add-display: {% if has_quick_add %}flex{% else %}none{% endif %};
+                    --quick-add-mobile-display: {% if has_mobile_quick_add %}flex{% else %}none{% endif %};
+                    --quick-add-mobile-opacity: {% if has_mobile_quick_add %}1{% else %}0{% endif %};
+                  "
+                >
+                  <a
+                    href="{{ variant.url }}"
+                    class="variant-card__link"
+                    ref="productCardLink"
+                    aria-label="{{ product.title }}{% unless variant.title == 'Default Title' %} - {{ variant.title }}{% endunless %}"
+                  ></a>
 
                   {% for block in section.blocks %}
                     {% case block.type %}
@@ -179,6 +204,9 @@
                           {% else %}
                             {{ 'product-1' | placeholder_svg_tag: 'variant-card__placeholder' }}
                           {% endif %}
+                          {% if settings.quick_add or settings.mobile_quick_add %}
+                            {% render 'quick-add', product: product, section_id: section.id, forced_variant: variant %}
+                          {% endif %}
                         </div>
 
                       {% when 'variant-title' %}
@@ -198,17 +226,35 @@
                       {% when 'variant-option' %}
                         {% for option in product.options %}
                           {% unless product.options.size == 1 and variant.options[forloop.index0] == 'Default Title' %}
-                            <p class="variant-card__subtitle" {{ block.shopify_attributes }}>
-                              {{ option }}: {{ variant.options[forloop.index0] }}
-                            </p>
+                            <p
+                              class="variant-card__subtitle {{ block.settings.type_preset | default: '' }}"
+                              style="
+                                text-align: {{ block.settings.alignment | default: 'left' }};
+                                padding-block-start: {{ block.settings['padding-block-start'] }}px;
+                                padding-block-end: {{ block.settings['padding-block-end'] }}px;
+                                padding-inline-start: {{ block.settings['padding-inline-start'] }}px;
+                                padding-inline-end: {{ block.settings['padding-inline-end'] }}px;
+                                {% render 'typography-style', settings: block.settings %}
+                              "
+                              {{ block.shopify_attributes }}
+                            >{{ option }}: {{ variant.options[forloop.index0] }}</p>
                           {% endunless %}
                         {% endfor %}
 
                       {% when 'variant-description' %}
                         {% if scent_desc != blank %}
-                          <p class="variant-card__description" {{ block.shopify_attributes }}>
-                            {{ scent_desc.value | default: scent_desc }}
-                          </p>
+                          <p
+                            class="variant-card__description {{ block.settings.type_preset | default: '' }}"
+                            style="
+                              text-align: {{ block.settings.alignment | default: 'left' }};
+                              padding-block-start: {{ block.settings['padding-block-start'] }}px;
+                              padding-block-end: {{ block.settings['padding-block-end'] }}px;
+                              padding-inline-start: {{ block.settings['padding-inline-start'] }}px;
+                              padding-inline-end: {{ block.settings['padding-inline-end'] }}px;
+                              {% render 'typography-style', settings: block.settings %}
+                            "
+                            {{ block.shopify_attributes }}
+                          >{{ scent_desc.value | default: scent_desc }}</p>
                         {% endif %}
 
                       {% when 'variant-price' %}
@@ -235,7 +281,7 @@
                     {% endcase %}
                   {% endfor %}
 
-                </a>
+                </product-card>
               </li>
             {% endfor %}
           {% endfor %}
@@ -247,12 +293,39 @@
   </div>
 </div>
 
+{% style %}
+  /* Fix missing CSS variables that quick-add.liquid depends on for positioning */
+  .variant-card .quick-add {
+    --padding-inline-end: 0px;
+    --padding-block-end: 0px;
+    --border-radius: 0px;
+  }
+
+  @media screen and (min-width: 750px) {
+    product-card.variant-card .quick-add__button {
+      display: flex !important;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    product-card.variant-card:hover .quick-add__button,
+    product-card.variant-card:focus-within .quick-add__button {
+      opacity: 1 !important;
+    }
+  }
+{% endstyle %}
+
 {% stylesheet %}
   .variant-card {
     display: flex;
     flex-direction: column;
-    text-decoration: none;
-    color: inherit;
+    position: relative;
+  }
+
+  .variant-card__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 
   .variant-card__media {
@@ -285,17 +358,25 @@
   }
 
   .variant-card__subtitle {
-    font-family: var(--font-body--family);
-    font-size: 0.875rem;
-    color: var(--color-foreground);
+    font-family: var(--font-family, var(--font-body--family));
+    font-size: var(--font-size, 0.875rem);
+    font-weight: var(--font-weight, normal);
+    color: var(--color, var(--color-foreground));
+    text-transform: var(--text-transform, none);
+    letter-spacing: var(--letter-spacing, normal);
+    line-height: var(--line-height, normal);
     opacity: 0.7;
     margin: 0;
   }
 
   .variant-card__description {
-    font-family: var(--font-body--family);
-    font-size: 0.875rem;
-    color: var(--color-foreground);
+    font-family: var(--font-family, var(--font-body--family));
+    font-size: var(--font-size, 0.875rem);
+    font-weight: var(--font-weight, normal);
+    color: var(--color, var(--color-foreground));
+    text-transform: var(--text-transform, none);
+    letter-spacing: var(--letter-spacing, normal);
+    line-height: var(--line-height, normal);
     opacity: 0.7;
     margin: 0;
     white-space: pre-line;
@@ -317,6 +398,7 @@
     opacity: 0.6;
     margin-inline-start: 4px;
   }
+
 {% endstylesheet %}
 
 {% schema %}
@@ -616,13 +698,313 @@
       "type": "variant-option",
       "name": "Variant option",
       "limit": 1,
-      "settings": []
+      "settings": [
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "t:settings.alignment",
+          "options": [
+            { "value": "left", "label": "t:options.left" },
+            { "value": "center", "label": "t:options.center" },
+            { "value": "right", "label": "t:options.right" }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "header",
+          "content": "t:content.typography"
+        },
+        {
+          "type": "select",
+          "id": "type_preset",
+          "label": "t:settings.preset",
+          "options": [
+            { "value": "", "label": "t:options.default" },
+            { "value": "paragraph", "label": "t:options.paragraph" },
+            { "value": "h1", "label": "t:options.h1" },
+            { "value": "h2", "label": "t:options.h2" },
+            { "value": "h3", "label": "t:options.h3" },
+            { "value": "h4", "label": "t:options.h4" },
+            { "value": "h5", "label": "t:options.h5" },
+            { "value": "h6", "label": "t:options.h6" },
+            { "value": "custom", "label": "t:options.custom" }
+          ],
+          "info": "t:info.edit_presets_in_theme_settings"
+        },
+        {
+          "type": "select",
+          "id": "font",
+          "label": "t:settings.font",
+          "options": [
+            { "value": "var(--font-body--family)", "label": "t:options.body" },
+            { "value": "var(--font-subheading--family)", "label": "t:options.subheading" },
+            { "value": "var(--font-heading--family)", "label": "t:options.heading" },
+            { "value": "var(--font-accent--family)", "label": "t:options.accent" }
+          ],
+          "default": "var(--font-body--family)",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "font_size",
+          "label": "t:settings.size",
+          "options": [
+            { "value": "", "label": "t:options.default" },
+            { "value": "0.625rem", "label": "10px" },
+            { "value": "0.75rem", "label": "12px" },
+            { "value": "0.875rem", "label": "14px" },
+            { "value": "1rem", "label": "16px" },
+            { "value": "1.125rem", "label": "18px" },
+            { "value": "1.25rem", "label": "20px" },
+            { "value": "1.5rem", "label": "24px" },
+            { "value": "2rem", "label": "32px" },
+            { "value": "2.5rem", "label": "40px" },
+            { "value": "3rem", "label": "48px" },
+            { "value": "3.5rem", "label": "56px" },
+            { "value": "4.5rem", "label": "72px" },
+            { "value": "5.5rem", "label": "88px" },
+            { "value": "7.5rem", "label": "120px" },
+            { "value": "9.5rem", "label": "152px" },
+            { "value": "11.5rem", "label": "184px" }
+          ],
+          "default": "0.875rem",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "line_height",
+          "label": "t:settings.line_height",
+          "options": [
+            { "value": "tight", "label": "t:options.tight" },
+            { "value": "normal", "label": "t:options.normal" },
+            { "value": "loose", "label": "t:options.loose" }
+          ],
+          "default": "normal",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "letter_spacing",
+          "label": "t:settings.letter_spacing",
+          "options": [
+            { "value": "tight", "label": "t:options.tight" },
+            { "value": "normal", "label": "t:options.normal" },
+            { "value": "loose", "label": "t:options.loose" }
+          ],
+          "default": "normal",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "case",
+          "label": "t:settings.case",
+          "options": [
+            { "value": "none", "label": "t:options.default" },
+            { "value": "uppercase", "label": "t:options.uppercase" }
+          ],
+          "default": "none",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "t:settings.color",
+          "options": [
+            { "value": "var(--color-foreground)", "label": "t:options.text" },
+            { "value": "var(--color-foreground-heading)", "label": "t:options.heading" },
+            { "value": "var(--color-primary)", "label": "t:options.link" }
+          ],
+          "default": "var(--color-foreground)"
+        },
+        {
+          "type": "header",
+          "content": "t:content.padding"
+        },
+        {
+          "type": "range",
+          "id": "padding-block-start",
+          "label": "t:settings.top",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-block-end",
+          "label": "t:settings.bottom",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-inline-start",
+          "label": "t:settings.left",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-inline-end",
+          "label": "t:settings.right",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        }
+      ]
     },
     {
       "type": "variant-description",
       "name": "Scent description",
       "limit": 1,
-      "settings": []
+      "settings": [
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "t:settings.alignment",
+          "options": [
+            { "value": "left", "label": "t:options.left" },
+            { "value": "center", "label": "t:options.center" },
+            { "value": "right", "label": "t:options.right" }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "header",
+          "content": "t:content.typography"
+        },
+        {
+          "type": "select",
+          "id": "type_preset",
+          "label": "t:settings.preset",
+          "options": [
+            { "value": "", "label": "t:options.default" },
+            { "value": "paragraph", "label": "t:options.paragraph" },
+            { "value": "h1", "label": "t:options.h1" },
+            { "value": "h2", "label": "t:options.h2" },
+            { "value": "h3", "label": "t:options.h3" },
+            { "value": "h4", "label": "t:options.h4" },
+            { "value": "h5", "label": "t:options.h5" },
+            { "value": "h6", "label": "t:options.h6" },
+            { "value": "custom", "label": "t:options.custom" }
+          ],
+          "info": "t:info.edit_presets_in_theme_settings"
+        },
+        {
+          "type": "select",
+          "id": "font",
+          "label": "t:settings.font",
+          "options": [
+            { "value": "var(--font-body--family)", "label": "t:options.body" },
+            { "value": "var(--font-subheading--family)", "label": "t:options.subheading" },
+            { "value": "var(--font-heading--family)", "label": "t:options.heading" },
+            { "value": "var(--font-accent--family)", "label": "t:options.accent" }
+          ],
+          "default": "var(--font-body--family)",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "font_size",
+          "label": "t:settings.size",
+          "options": [
+            { "value": "", "label": "t:options.default" },
+            { "value": "0.625rem", "label": "10px" },
+            { "value": "0.75rem", "label": "12px" },
+            { "value": "0.875rem", "label": "14px" },
+            { "value": "1rem", "label": "16px" },
+            { "value": "1.125rem", "label": "18px" },
+            { "value": "1.25rem", "label": "20px" },
+            { "value": "1.5rem", "label": "24px" },
+            { "value": "2rem", "label": "32px" },
+            { "value": "2.5rem", "label": "40px" },
+            { "value": "3rem", "label": "48px" },
+            { "value": "3.5rem", "label": "56px" },
+            { "value": "4.5rem", "label": "72px" },
+            { "value": "5.5rem", "label": "88px" },
+            { "value": "7.5rem", "label": "120px" },
+            { "value": "9.5rem", "label": "152px" },
+            { "value": "11.5rem", "label": "184px" }
+          ],
+          "default": "0.875rem",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "line_height",
+          "label": "t:settings.line_height",
+          "options": [
+            { "value": "tight", "label": "t:options.tight" },
+            { "value": "normal", "label": "t:options.normal" },
+            { "value": "loose", "label": "t:options.loose" }
+          ],
+          "default": "normal",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "letter_spacing",
+          "label": "t:settings.letter_spacing",
+          "options": [
+            { "value": "tight", "label": "t:options.tight" },
+            { "value": "normal", "label": "t:options.normal" },
+            { "value": "loose", "label": "t:options.loose" }
+          ],
+          "default": "normal",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "case",
+          "label": "t:settings.case",
+          "options": [
+            { "value": "none", "label": "t:options.default" },
+            { "value": "uppercase", "label": "t:options.uppercase" }
+          ],
+          "default": "none",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "t:settings.color",
+          "options": [
+            { "value": "var(--color-foreground)", "label": "t:options.text" },
+            { "value": "var(--color-foreground-heading)", "label": "t:options.heading" },
+            { "value": "var(--color-primary)", "label": "t:options.link" }
+          ],
+          "default": "var(--color-foreground)"
+        },
+        {
+          "type": "header",
+          "content": "t:content.padding"
+        },
+        {
+          "type": "range",
+          "id": "padding-block-start",
+          "label": "t:settings.top",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-block-end",
+          "label": "t:settings.bottom",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-inline-start",
+          "label": "t:settings.left",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "padding-inline-end",
+          "label": "t:settings.right",
+          "min": 0, "max": 50, "step": 1, "unit": "px",
+          "default": 0
+        }
+      ]
     },
     {
       "type": "variant-price",

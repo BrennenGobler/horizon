@@ -5,6 +5,7 @@
   @param {string} section_id - The section ID
   @param {object} [block] - The block object
   @param {string} [color_scheme] - The color scheme to use
+  @param {object} [forced_variant] - If provided, uses this specific variant instead of the first available one and always shows the Add button.
 {%- enddoc -%}
 
 {% liquid
@@ -14,7 +15,12 @@
   assign color_scheme = color_scheme | default: settings.quick_add_color_scheme
 
   # Logic to determine which variant to use (matching swatch selection logic from product-card)
-  assign variant = product.selected_or_first_available_variant
+  assign variant = forced_variant | default: product.selected_or_first_available_variant
+
+  # When a forced variant is provided, include its id in the form id for uniqueness
+  if forced_variant != blank
+    assign product_form_id = product_form_id | append: '-' | append: forced_variant.id
+  endif
 
   if variant.available
     assign can_add_to_cart = true
@@ -24,6 +30,11 @@
 
   assign quick_add_button = 'choose'
   if product.variants_count == 1 or product.options.size == 1 and product.selected_variant
+    assign quick_add_button = 'add'
+  endif
+
+  # When a forced variant is provided, always show the Add button directly
+  if forced_variant != blank
     assign quick_add_button = 'add'
   endif
 %}
