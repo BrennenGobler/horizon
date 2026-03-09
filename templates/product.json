@@ -436,7 +436,6 @@
       },
       "custom_css": [
         ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}",
-        ".slideshow-controls__thumbnails .slideshow-control:is([aria-selected=\"true\"]) {outline: var(--focus-outline-width) solid #000000;}",
         "@media screen and (max-width: 749px) {.layout-panel-flex--row:not(.mobile-column) > .text-block {flex: 1 1 75%; } .layout-panel-flex--row:not(.mobile-column) > .text-block ~ * {flex: 1 1 20%; }}"
       ],
       "settings": {
