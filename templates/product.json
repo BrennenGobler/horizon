@@ -207,7 +207,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>4oz</strong></p>",
+                "text": "<p><strong>{{ closest.product.metafields.custom.size.value }}</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
