@@ -61,9 +61,14 @@
   }
 
   .variant-section-inner--{{ section.id }} {
-    {% if section.settings.product_grid_width == 'centered' and section.settings.full_width_on_mobile == false %}
-      padding-inline-start: calc(var(--page-margin) + {{ section.settings['padding-inline-start'] }}px);
-      padding-inline-end: calc(var(--page-margin) + {{ section.settings['padding-inline-end'] }}px);
+    {% if section.settings.product_grid_width == 'full-width' %}
+      grid-column: 1 / -1;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
+    {% elsif section.settings.full_width_on_mobile %}
+      grid-column: 1 / -1;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
     {% else %}
       padding-inline-start: 0;
       padding-inline-end: 0;
@@ -72,10 +77,12 @@
 
   @media screen and (min-width: 750px) {
     .variant-section-inner--{{ section.id }} {
-      {% if section.settings.product_grid_width == 'centered' %}
-        padding-inline-start: calc(var(--page-margin) + {{ section.settings['padding-inline-start'] }}px);
-        padding-inline-end: calc(var(--page-margin) + {{ section.settings['padding-inline-end'] }}px);
+      {% if section.settings.product_grid_width == 'full-width' %}
+        grid-column: 1 / -1;
+        padding-inline-start: {{ section.settings['padding-inline-start'] }}px;
+        padding-inline-end: {{ section.settings['padding-inline-end'] }}px;
       {% else %}
+        grid-column: 2;
         padding-inline-start: {{ section.settings['padding-inline-start'] }}px;
         padding-inline-end: {{ section.settings['padding-inline-end'] }}px;
       {% endif %}
