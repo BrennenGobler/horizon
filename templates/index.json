@@ -46,7 +46,7 @@
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h5",
+            "type_preset": "custom",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
@@ -70,7 +70,7 @@
         "text_GHBR9p"
       ],
       "custom_css": [
-        "strong {font-family: lobster two, italic; text-transform: lowercase;}"
+        "strong {font-family: var(--font-accent--family); text-transform: lowercase;}"
       ],
       "name": "t:names.hero",
       "settings": {
