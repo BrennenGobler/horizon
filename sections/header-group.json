@@ -50,7 +50,7 @@
         }
       },
       "custom_css": [
-        ".menu-drawer__back-button {font-family: var(--font-accent--family); text-transform: lowercase;}"
+        ".menu-drawer__back-button {font-family: lobster two; font-style: italic; text-transform: lowercase;}"
       ],
       "settings": {
         "logo_position": "left",
