@@ -70,7 +70,7 @@
         "text_GHBR9p"
       ],
       "custom_css": [
-        "strong {font-family: lobster two; text-transform: lowercase;}"
+        "strong {font-family: lobster two, italic; text-transform: lowercase;}"
       ],
       "name": "t:names.hero",
       "settings": {
