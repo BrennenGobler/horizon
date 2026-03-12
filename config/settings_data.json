@@ -692,7 +692,8 @@
       ".cart-drawer .cart-items__table-row--full-width-variants {grid-template-columns: clamp(7.5rem, 15cqi, 7.5rem) minmax(0, 1fr) auto;}",
       ".cart-items__title {font-family: \"Anton\";}",
       ".cart-items__variant dd {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}",
-      ".menu-drawer__menu-item--parent {color: #1A1A1A;}"
+      ".menu-drawer__menu-item--parent {color: #1a1a1a;}",
+      ".menu-drawer__inner-submenu .menu-drawer__menu-item-text.wrap-text {font-size: 18px;}"
     ]
   }
 }
