@@ -691,7 +691,7 @@
     "custom_css": [
       ".cart-drawer .cart-items__table-row--full-width-variants {grid-template-columns: clamp(7.5rem, 15cqi, 7.5rem) minmax(0, 1fr) auto;}",
       ".cart-items__title {font-family: \"Anton\";}",
-      ".cart-items__variant dd {font-family: \"Lobster Two\"; text-transform: lowercase;}"
+      ".cart-items__variant dd {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
     ]
   }
 }
