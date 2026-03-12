@@ -206,7 +206,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>{{ closest.product.metafields.custom.size.value }}</strong></p>",
+                    "text": "<p>{{ closest.product.metafields.custom.size.value }}</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -232,7 +232,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>| </strong></p>",
+                    "text": "<p>| </p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -258,7 +258,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Lasts 2 months</strong></p>",
+                    "text": "<p>Lasts 2 months</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
