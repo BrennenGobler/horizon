@@ -236,7 +236,7 @@
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "rte",
+                    "type_preset": "h6",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
                     "line_height": "normal",
@@ -258,7 +258,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Lasts 2 months</p>",
+                    "text": "<p>Lasts 2 months on average</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -270,13 +270,13 @@
                     "case": "none",
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
+                    "background": true,
+                    "background_color": "#00000015",
+                    "corner_radius": 4,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-inline-start": 8,
+                    "padding-inline-end": 8
                   },
                   "blocks": {}
                 }
