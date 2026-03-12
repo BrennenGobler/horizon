@@ -693,7 +693,8 @@
       ".cart-items__title {font-family: \"Anton\";}",
       ".cart-items__variant dd {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}",
       ".menu-drawer__menu-item--parent {color: #1a1a1a;}",
-      ".menu-drawer__inner-submenu .menu-drawer__menu-item-text.wrap-text {font-size: 18px;}"
+      ".menu-drawer__inner-submenu .menu-drawer__menu-item-text.wrap-text {font-size: 18px;}",
+      ".menu-drawer__menu.menu-drawer__menu--grandchildlist.details-content {padding-left: 15px;}"
     ]
   }
 }
