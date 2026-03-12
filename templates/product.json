@@ -271,7 +271,7 @@
                     "wrap": "pretty",
                     "color": "var(--color-foreground)",
                     "background": true,
-                    "background_color": "#00000010",
+                    "background_color": "#0000000f",
                     "corner_radius": 4,
                     "padding-block-start": 0,
                     "padding-block-end": 0,
@@ -493,7 +493,7 @@
       },
       "custom_css": [
         ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}",
-        "@media screen and (max-width: 749px) {.layout-panel-flex--row:not(.mobile-column) > .text-block {flex: 1 1 75%; } .layout-panel-flex--row:not(.mobile-column) > .text-block ~ * {flex: 1 1 20%; }}"
+        "@media screen and (max-width: 749px) {.group-block--width-fit-content > .group-block-content.layout-panel-flex--row:not(.mobile-column) {flex-wrap: nowrap; } .group-block--width-fit-content > .group-block-content.layout-panel-flex--row:not(.mobile-column) > .text-block {flex: 0 0 auto; }}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
