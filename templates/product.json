@@ -9,6 +9,17 @@
  */
 {
   "sections": {
+    "custom_liquid_gCmJXN": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid / CSS",
+      "settings": {
+        "custom_liquid": "<style>\n/* 3-item group (size / lasts 2 months): stay on one row */\n@media screen and (max-width: 749px) {\n  .group-block--width-fit-content > .group-block-content.layout-panel-flex--row:not(.mobile-column) {\n    flex-wrap: nowrap;\n  }\n  .group-block--width-fit-content > .group-block-content.layout-panel-flex--row:not(.mobile-column) > .text-block {\n    flex: 0 0 auto;\n  }\n}\n\n/* Header group (title + price): title takes remaining space, price stays compact */\n@media screen and (max-width: 749px) {\n  .group-block--width-fill > .group-block-content.layout-panel-flex--row:not(.mobile-column) > .text-block {\n    flex: 1 1 70%;\n  }\n  .group-block--width-fill > .group-block-content.layout-panel-flex--row:not(.mobile-column) > .text-block ~ * {\n    flex: 0 0 auto;\n  }\n}\n</style>",
+        "color_scheme": "",
+        "section_width": "full-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "main": {
       "type": "product-information",
       "blocks": {
@@ -492,8 +503,7 @@
         }
       },
       "custom_css": [
-        ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}",
-        "@media screen and (max-width: 749px) {.group-block--width-fit-content > .group-block-content.layout-panel-flex--row:not(.mobile-column) {flex-wrap: nowrap; } .group-block--width-fit-content > .group-block-content.layout-panel-flex--row:not(.mobile-column) > .text-block {flex: 0 0 auto; }}"
+        ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
@@ -650,6 +660,7 @@
     }
   },
   "order": [
+    "custom_liquid_gCmJXN",
     "main",
     "product_recommendations_qggXJq"
   ]
