@@ -305,7 +305,7 @@
                 "variant_style": "buttons",
                 "show_swatches": true,
                 "legend_font": "accent",
-                "legend_font_size": "1rem",
+                "legend_font_size": "1.125rem",
                 "legend_text_case": "lowercase",
                 "swatch_name_font": "accent",
                 "swatch_name_font_size": "1rem",
