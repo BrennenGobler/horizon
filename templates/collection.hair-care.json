@@ -276,8 +276,7 @@
         "group_D9eJKU"
       ],
       "custom_css": [
-        "strong {font-family: \"Lobster two\"; text-transform: lowercase;}",
-        "a {}"
+        "strong {font-family: \"Lobster two\"; text-transform: lowercase; font-style: italic;}"
       ],
       "name": "t:names.image_with_text",
       "settings": {
