@@ -269,7 +269,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p>Lasts <strong>2 months</strong> on average</p>",
+                    "text": "{{ closest.product.metafields.custom.lifespan | metafield_tag }}",
                     "width": "fit-content",
                     "max_width": "none",
                     "alignment": "left",
