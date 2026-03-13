@@ -330,8 +330,8 @@
               "disabled": true,
               "settings": {
                 "color_text_body": "#1a1a1a",
-                "dividers_color": "#8F8D8D",
-                "bacgkround_color": "#FFFFFF",
+                "dividers_color": "#8f8d8d",
+                "bacgkround_color": "#ffffff",
                 "border_thickness": 0,
                 "border_radius": 0,
                 "subscription_policy_url": "",
@@ -529,7 +529,8 @@
         }
       },
       "custom_css": [
-        ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}"
+        ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}",
+        ".variant-picker__form legend {font-weight: 600; text-decoration: underline;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
