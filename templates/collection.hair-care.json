@@ -227,7 +227,7 @@
             "text_hfbJ7F": {
               "type": "text",
               "settings": {
-                "text": "<p>We're Bald Beard <strong>Bros...</strong> we don't sell hair care products.</p><p>However, we do have great products for <a href=\"/collections\" title=\"All collections\">bald head care</a> and <a href=\"/collections\" title=\"All collections\">beard care</a>.</p>",
+                "text": "{{ closest.collection.description }}",
                 "width": "fit-content",
                 "max_width": "narrow",
                 "alignment": "left",
