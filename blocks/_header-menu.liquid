@@ -499,7 +499,8 @@
     }
   }
 
-  .mega-menu__link--parent {
+  .mega-menu__link--parent,
+  .mega-menu__column > div > .mega-menu__link:not(.mega-menu__link--parent) {
     font-family: var(--menu-parent-font-family);
     font-style: var(--menu-parent-font-style);
     font-weight: var(--menu-parent-font-weight);
@@ -718,26 +719,6 @@
     },
     {
       "type": "select",
-      "id": "menu_font_style",
-      "label": "t:settings.submenu_size",
-      "options": [
-        {
-          "value": "regular",
-          "label": "t:options.small"
-        },
-        {
-          "value": "inverse",
-          "label": "t:options.medium"
-        },
-        {
-          "value": "inverse_large",
-          "label": "t:options.large"
-        }
-      ],
-      "default": "inverse"
-    },
-    {
-      "type": "select",
       "id": "type_font_primary_link",
       "label": "t:settings.font",
       "options": [
@@ -763,6 +744,78 @@
     {
       "type": "select",
       "id": "type_case_primary_link",
+      "label": "t:settings.text_case",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:options.default"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:options.uppercase"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "t:content.submenu_typography"
+    },
+    {
+      "type": "select",
+      "id": "type_font_submenu_link",
+      "label": "t:settings.font",
+      "options": [
+        {
+          "value": "body",
+          "label": "t:options.body"
+        },
+        {
+          "value": "subheading",
+          "label": "t:options.subheading"
+        },
+        {
+          "value": "heading",
+          "label": "t:options.heading"
+        },
+        {
+          "value": "accent",
+          "label": "t:options.accent"
+        }
+      ],
+      "default": "body"
+    },
+    {
+      "type": "select",
+      "id": "type_font_submenu_size",
+      "label": "t:settings.submenu_size",
+      "options": [
+        {
+          "value": "0.625rem",
+          "label": "10px"
+        },
+        {
+          "value": "0.75rem",
+          "label": "12px"
+        },
+        {
+          "value": "0.875rem",
+          "label": "14px"
+        },
+        {
+          "value": "1rem",
+          "label": "16px"
+        },
+        {
+          "value": "1.125rem",
+          "label": "18px"
+        }
+      ],
+      "default": "0.875rem"
+    },
+    {
+      "type": "select",
+      "id": "type_case_submenu_link",
       "label": "t:settings.text_case",
       "options": [
         {

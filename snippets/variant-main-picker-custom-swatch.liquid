@@ -17,6 +17,28 @@
 
 {% assign block_settings = block.settings %}
 
+{% style %}
+  variant-picker[data-block-id="{{ block.id }}"] {
+    --swatch-legend-font-family: var(--font-{{ block_settings.legend_font | default: 'body' }}--family);
+    --swatch-legend-font-style: var(--font-{{ block_settings.legend_font | default: 'body' }}--style);
+    --swatch-legend-font-weight: var(--font-{{ block_settings.legend_font | default: 'body' }}--weight);
+    --swatch-legend-font-size: {{ block_settings.legend_font_size | default: '0.875rem' }};
+    --swatch-legend-text-case: {{ block_settings.legend_text_case | default: 'none' }};
+    --swatch-name-font-family: var(--font-{{ block_settings.swatch_name_font | default: 'body' }}--family);
+    --swatch-name-font-style: var(--font-{{ block_settings.swatch_name_font | default: 'body' }}--style);
+    --swatch-name-font-weight: var(--font-{{ block_settings.swatch_name_font | default: 'body' }}--weight);
+    --swatch-name-font-size: {{ block_settings.swatch_name_font_size | default: '0.75rem' }};
+    --swatch-name-text-case: {{ block_settings.swatch_name_text_case | default: 'none' }};
+    --swatch-desc-font-family: var(--font-{{ block_settings.swatch_desc_font | default: 'body' }}--family);
+    --swatch-desc-font-style: var(--font-{{ block_settings.swatch_desc_font | default: 'body' }}--style);
+    --swatch-desc-font-weight: var(--font-{{ block_settings.swatch_desc_font | default: 'body' }}--weight);
+    --swatch-desc-font-size: {{ block_settings.swatch_desc_font_size | default: '0.75rem' }};
+    --swatch-desc-text-case: {{ block_settings.swatch_desc_text_case | default: 'none' }};
+    --custom-swatch-padding: {{ block_settings.custom_swatch_padding | default: 8 }}px;
+    --custom-swatch-icon-height: {{ block_settings.custom_swatch_icon_height | default: 50 }}px;
+  }
+{% endstyle %}
+
 {% unless product_resource.has_only_default_variant %}
   {% liquid
     assign button_background_brightness = section.settings.color_scheme.settings.foreground | color_brightness
@@ -289,6 +311,11 @@
   .variant-option--custom-swatches legend {
     grid-column: 1 / -1;
     width: 100%;
+    font-family: var(--swatch-legend-font-family);
+    font-style: var(--swatch-legend-font-style);
+    font-weight: var(--swatch-legend-font-weight);
+    font-size: var(--swatch-legend-font-size);
+    text-transform: var(--swatch-legend-text-case);
   }
 
   /* Label fills its grid cell so the swatch card stretches full width */
@@ -311,7 +338,7 @@
     gap: 4px;
     width: 100%;
     min-height: var(--custom-swatch-height, 150px);
-    padding: var(--padding-sm, 8px);
+    padding: var(--custom-swatch-padding, 8px);
     border-radius: var(--style-border-radius-inputs, 4px);
     /* overflow:hidden clips child content to the border-radius but causes the
        CSS border to be partially obscured at corners. Instead, the border is
@@ -332,10 +359,10 @@
     z-index: 1;
   }
 
-  /* Icon — centered, max 50px tall */
+  /* Icon — fixed height set via configurator */
   .custom-swatch__icon {
     display: block;
-    max-height: 50px;
+    height: var(--custom-swatch-icon-height, 50px);
     width: auto;
     max-width: 100%;
     object-fit: contain;
@@ -345,8 +372,11 @@
   /* Name */
   .custom-swatch__name {
     flex-shrink: 0;
-    font-size: var(--font-paragraph-small--size, 0.75rem);
-    font-weight: var(--font-weight-semibold, 600);
+    font-family: var(--swatch-name-font-family);
+    font-style: var(--swatch-name-font-style);
+    font-weight: var(--swatch-name-font-weight);
+    font-size: var(--swatch-name-font-size, 0.75rem);
+    text-transform: var(--swatch-name-text-case);
     text-align: center;
     line-height: 1.25;
     color: var(--color-foreground);
@@ -357,7 +387,11 @@
 
   /* Description — wraps inside the swatch card */
   .custom-swatch__description {
-    font-size: var(--font-paragraph-small--size, 0.75rem);
+    font-family: var(--swatch-desc-font-family);
+    font-style: var(--swatch-desc-font-style);
+    font-weight: var(--swatch-desc-font-weight);
+    font-size: var(--swatch-desc-font-size, 0.75rem);
+    text-transform: var(--swatch-desc-text-case);
     line-height: 1.2;
     text-align: center;
     color: var(--color-foreground);
