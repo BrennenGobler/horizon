@@ -33,9 +33,11 @@
             "menu": "main-menu",
             "color_scheme": "scheme-1",
             "type_font_primary_size": "1.125rem",
-            "menu_font_style": "inverse_large",
             "type_font_primary_link": "heading",
             "type_case_primary_link": "uppercase",
+            "type_font_submenu_link": "body",
+            "type_font_submenu_size": "0.875rem",
+            "type_case_submenu_link": "none",
             "menu_style": "collection_images",
             "featured_products_aspect_ratio": "4 / 5",
             "featured_collections_aspect_ratio": "16 / 9",
@@ -51,7 +53,7 @@
       },
       "custom_css": [
         ".menu-drawer__back-button {font-family: lobster two; font-style: italic; text-transform: lowercase;}",
-        ".menu-list__link-title {font-size: 1.5rem;}"
+        ".menu-list__link-title {font-size: 1.25rem;}"
       ],
       "settings": {
         "logo_position": "left",
