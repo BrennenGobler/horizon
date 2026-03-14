@@ -53,21 +53,22 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "collection_title_4pUM9H": {
-              "type": "collection-title",
-              "name": "t:names.collection_title",
+            "text_K4VwhU": {
+              "type": "text",
+              "name": "Title",
               "settings": {
+                "text": "<h1>{{ closest.collection.title }}</h1>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "h1",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "font": "var(--font-primary--family)",
+                "font_size": "",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "color": "var(--color-foreground)",
+                "color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -106,40 +107,14 @@
             }
           },
           "block_order": [
-            "collection_title_4pUM9H",
+            "text_K4VwhU",
             "text_UiQGPQ"
           ]
-        },
-        "text_tqQTNE": {
-          "type": "text",
-          "name": "Title",
-          "disabled": true,
-          "settings": {
-            "text": "<h1>{{ closest.collection.title }}</h1>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
         },
         "text_twGGkJ": {
           "type": "text",
           "name": "Description",
+          "disabled": true,
           "settings": {
             "text": "{{ closest.collection.description }}",
             "width": "fit-content",
@@ -166,7 +141,6 @@
       },
       "block_order": [
         "group_iMxtzf",
-        "text_tqQTNE",
         "text_twGGkJ"
       ],
       "name": "Collection heading",
