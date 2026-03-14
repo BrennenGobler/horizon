@@ -15,7 +15,7 @@
     "logo_height_mobile": 28,
     "favicon": "shopify://shop_images/bald-beard-bros-logo-bk-1200x1200.png",
     "type_body_font": "barlow_n4",
-    "type_subheading_font": "anton_n4",
+    "type_subheading_font": "barlow_n7",
     "type_heading_font": "anton_n4",
     "type_accent_font": "lobster_two_i4",
     "type_size_paragraph": "16",
