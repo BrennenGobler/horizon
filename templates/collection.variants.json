@@ -154,7 +154,6 @@
         },
         "variant-description": {
           "type": "variant-description",
-          "disabled": true,
           "settings": {
             "alignment": "left",
             "type_preset": "",
@@ -178,7 +177,7 @@
             "type_preset": "custom",
             "width": "100%",
             "alignment": "left",
-            "font": "var(--font-heading--family)",
+            "font": "var(--font-subheading--family)",
             "font_size": "1.125rem",
             "line_height": "normal",
             "letter_spacing": "normal",
