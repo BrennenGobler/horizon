@@ -350,7 +350,7 @@
           "type": "text",
           "name": "SEO Description",
           "settings": {
-            "text": "{{ closest.collection.description }}",
+            "text": "{{ closest.collection.metafields.custom.seo_description | metafield_tag }}",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
