@@ -237,7 +237,7 @@
                                 {% render 'typography-style', settings: block.settings %}
                               "
                               {{ block.shopify_attributes }}
-                            >{{ option }}: {{ variant.options[forloop.index0] }}</p>
+                            >{{ variant.options[forloop.index0] }}</p>
                           {% endunless %}
                         {% endfor %}
 
@@ -800,6 +800,7 @@
           "label": "t:settings.case",
           "options": [
             { "value": "none", "label": "t:options.default" },
+            { "value": "lowercase", "label": "t:options.lowercase" },
             { "value": "uppercase", "label": "t:options.uppercase" }
           ],
           "default": "none",
