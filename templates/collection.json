@@ -83,7 +83,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<h2>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</h2>",
+                "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -322,9 +322,9 @@
       "blocks": {
         "text_wpi4qQ": {
           "type": "text",
-          "name": "t:names.text",
+          "name": "SEO H2",
           "settings": {
-            "text": "<h2>{{ closest.collection.metafields.custom.h2_seo_title.value }}test</h2>",
+            "text": "<h2>{{ closest.collection.metafields.custom.h2_seo_title.value }}</h2>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -348,9 +348,9 @@
         },
         "text_bUeNVU": {
           "type": "text",
-          "name": "t:names.text",
+          "name": "SEO Description",
           "settings": {
-            "text": "<p>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</p>",
+            "text": "{{ closest.collection.description }}",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
