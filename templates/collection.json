@@ -41,7 +41,7 @@
             "border_opacity": 100,
             "border_radius": 2,
             "toggle_overlay": true,
-            "overlay_color": "#00000040",
+            "overlay_color": "#00000050",
             "overlay_style": "solid",
             "gradient_direction": "to top",
             "link": "",
@@ -73,14 +73,41 @@
                 "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-start": 15,
+                "padding-inline-end": 15
+              },
+              "blocks": {}
+            },
+            "text_UiQGPQ": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h2>We make things that work better and last longer. Our products solve real problems with clean design and honest materials.</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-subheading--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 15,
+                "padding-inline-start": 15,
+                "padding-inline-end": 15
               },
               "blocks": {}
             }
           },
           "block_order": [
-            "collection_title_4pUM9H"
+            "collection_title_4pUM9H",
+            "text_UiQGPQ"
           ]
         },
         "text_tqQTNE": {
