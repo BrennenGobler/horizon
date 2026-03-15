@@ -476,7 +476,8 @@
       },
       "custom_css": [
         ".slideshow-control.button.button-unstyled.slideshow-controls__thumbnail {outline-offset: 0px;}",
-        ".variant-picker__form legend {font-weight: 600; text-decoration: underline;}"
+        ".variant-picker__form legend {font-weight: 600; text-decoration: underline;}",
+        ".custom-swatch__name {font-style: italic;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",
