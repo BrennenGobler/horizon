@@ -335,6 +335,9 @@
         "variant-description",
         "variant-price"
       ],
+      "custom_css": [
+        ".variant-card__subtitle.custom {font-style: italic;}"
+      ],
       "settings": {
         "layout_type": "grid",
         "product_card_size": "large",
