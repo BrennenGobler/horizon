@@ -145,6 +145,98 @@
         "padding-block-end": 0
       }
     },
+    "icon_strip_GUFHM4": {
+      "type": "icon-strip",
+      "blocks": {
+        "icon_text_hnkNBP": {
+          "type": "icon_text",
+          "settings": {
+            "image": "shopify://shop_images/oregon-icon.png",
+            "icon_width": 32,
+            "text": "Made in <strong>Oregon</strong>",
+            "alignment": "left",
+            "type_preset": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "color": "var(--color-foreground)",
+            "item_gap": 8
+          }
+        },
+        "icon_text_eBFcnT": {
+          "type": "icon_text",
+          "settings": {
+            "image": "shopify://shop_images/razor-icon.png",
+            "icon_width": 32,
+            "text": "Formulated for Bald <strong>bros.</strong>",
+            "alignment": "left",
+            "type_preset": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "color": "var(--color-foreground)",
+            "item_gap": 8
+          }
+        },
+        "icon_text_zGHQgY": {
+          "type": "icon_text",
+          "settings": {
+            "image": "shopify://shop_images/shop-icon.png",
+            "icon_width": 32,
+            "text": "Small <strong>Family</strong> Business",
+            "alignment": "left",
+            "type_preset": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "color": "var(--color-foreground)",
+            "item_gap": 8
+          }
+        },
+        "icon_text_cy7FaV": {
+          "type": "icon_text",
+          "settings": {
+            "image": "shopify://shop_images/refund-icon.png",
+            "icon_width": 32,
+            "text": "<strong>30-Day</strong> Money Back Guarantee",
+            "alignment": "left",
+            "type_preset": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "color": "var(--color-foreground)",
+            "item_gap": 8
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_hnkNBP",
+        "icon_text_eBFcnT",
+        "icon_text_zGHQgY",
+        "icon_text_cy7FaV"
+      ],
+      "custom_css": [
+        "strong {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
+      ],
+      "name": "Icon strip",
+      "settings": {
+        "alignment": "center",
+        "gap": 32,
+        "mobile_behavior": "scroll",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "padding_block_start": 32,
+        "padding_block_end": 32
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -410,6 +502,7 @@
   },
   "order": [
     "section",
+    "icon_strip_GUFHM4",
     "main",
     "section_FmmYpP"
   ]
