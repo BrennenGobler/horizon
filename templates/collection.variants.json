@@ -151,7 +151,7 @@
           "type": "icon_text",
           "settings": {
             "image": "shopify://shop_images/oregon-icon.png",
-            "icon_width": 40,
+            "icon_width": 32,
             "text": "Made in Oregon",
             "alignment": "left",
             "type_preset": "",
@@ -168,7 +168,7 @@
           "type": "icon_text",
           "settings": {
             "image": "shopify://shop_images/razor-icon.png",
-            "icon_width": 40,
+            "icon_width": 32,
             "text": "Formulated for Bald <strong>bros.</strong>",
             "alignment": "left",
             "type_preset": "",
@@ -185,7 +185,7 @@
           "type": "icon_text",
           "settings": {
             "image": "shopify://shop_images/shop-icon.png",
-            "icon_width": 40,
+            "icon_width": 32,
             "text": "Small Family Business",
             "alignment": "left",
             "type_preset": "",
@@ -222,7 +222,7 @@
         "icon_text_MqPHkw"
       ],
       "custom_css": [
-        "strong {font-family: 'Lobster Two'; font-style: italic;}"
+        "strong {font-family: \"Lobster Two\"; font-style: italic;}"
       ],
       "name": "Icon strip",
       "settings": {
