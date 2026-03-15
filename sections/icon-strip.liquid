@@ -1,0 +1,397 @@
+<div
+  class="
+    icon-strip
+    color-{{ section.settings.color_scheme }}
+    icon-strip--{{ section.settings.section_width }}
+    {% if section.settings.mobile_behavior == 'scroll' %} icon-strip--mobile-scroll{% endif %}
+    {% if section.settings.mobile_behavior == 'stack' %}  icon-strip--mobile-stack{% endif %}
+  "
+  style="
+    padding-block-start: {{ section.settings.padding_block_start }}px;
+    padding-block-end:   {{ section.settings.padding_block_end }}px;
+    --icon-strip-gap:       {{ section.settings.gap }}px;
+    --icon-strip-alignment: {{ section.settings.alignment }};
+  "
+>
+  <div class="icon-strip__inner">
+    <div class="icon-strip__items">
+
+      {%- for block in section.blocks -%}
+        <div
+          class="icon-strip__item"
+          style="--item-gap: {{ block.settings.item_gap }}px;"
+          {{ block.shopify_attributes }}
+        >
+
+          {%- if block.settings.image != blank -%}
+            <div class="icon-strip__icon" style="--icon-width: {{ block.settings.icon_width }}px;">
+              {{
+                block.settings.image
+                | image_url: width: 200
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '40, 60, 80, 100, 120, 160',
+                  style: 'width: var(--icon-width); height: auto; display: block; flex-shrink: 0;'
+              }}
+            </div>
+          {%- endif -%}
+
+          {%- if block.settings.text != blank -%}
+            <div
+              class="
+                icon-strip__text
+                {% if block.settings.type_preset == 'custom' %}
+                  icon-strip__text--custom
+                {% else %}
+                  {{ block.settings.type_preset }}
+                {% endif %}
+              "
+              style="
+                {%- render 'typography-style', settings: block.settings -%}
+                text-transform: {{ block.settings.case }};
+                text-align: {{ block.settings.alignment }};
+                white-space: nowrap;
+              "
+            >
+              {{- block.settings.text -}}
+            </div>
+          {%- endif -%}
+
+        </div>
+      {%- endfor -%}
+
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  /* ── Outer wrapper ─────────────────────────────────────────────── */
+  .icon-strip {
+    width: 100%;
+  }
+
+  /* ── Inner: centers content and handles page-width constraint ─── */
+  .icon-strip__inner {
+    max-width: var(--page-width, 1400px);
+    margin-inline: auto;
+    padding-inline: var(--page-margin, 40px);
+  }
+
+  .icon-strip--full-width .icon-strip__inner {
+    max-width: none;
+  }
+
+  /* ── Items flex row ────────────────────────────────────────────── */
+  .icon-strip__items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: var(--icon-strip-gap, 32px);
+    justify-content: var(--icon-strip-alignment, center);
+    align-items: center;
+  }
+
+  /* ── Single item (icon + text) ─────────────────────────────────── */
+  .icon-strip__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--item-gap, 8px);
+    flex-shrink: 0;
+  }
+
+  /* ── Text ─────────────────────────────────────────────────────── */
+  .icon-strip__text {
+    color: var(--color, currentColor);
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Consume typography-style variables only when custom preset is active */
+  .icon-strip__text--custom {
+    font-family: var(--font-family, inherit);
+    font-size: var(--font-size, inherit);
+    font-weight: var(--font-weight, inherit);
+    line-height: var(--line-height, inherit);
+    letter-spacing: var(--letter-spacing, normal);
+  }
+
+  /* ── Mobile ────────────────────────────────────────────────────── */
+  @media screen and (max-width: 749px) {
+    /* Stack: column layout */
+    .icon-strip--mobile-stack .icon-strip__items {
+      flex-direction: column;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    /* Scroll: escape page-width constraint, scroll horizontally */
+    .icon-strip--mobile-scroll .icon-strip__inner {
+      max-width: none;
+      padding-inline: 0;
+    }
+
+    .icon-strip--mobile-scroll .icon-strip__items {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      justify-content: flex-start;
+      padding-inline: var(--page-margin, 16px);
+      padding-block-end: 8px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Icon strip",
+  "class": "section-wrapper",
+  "blocks": [
+    {
+      "type": "icon_text",
+      "name": "Icon + text",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "range",
+          "id": "icon_width",
+          "label": "Icon size",
+          "min": 16,
+          "max": 120,
+          "step": 4,
+          "unit": "px",
+          "default": 40
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "Icon label"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "t:settings.alignment",
+          "options": [
+            { "value": "left",   "label": "t:options.left" },
+            { "value": "center", "label": "t:options.center" },
+            { "value": "right",  "label": "t:options.right" }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "header",
+          "content": "t:content.typography"
+        },
+        {
+          "type": "select",
+          "id": "type_preset",
+          "label": "t:settings.preset",
+          "options": [
+            { "value": "",         "label": "t:options.default" },
+            { "value": "paragraph","label": "t:options.paragraph" },
+            { "value": "h1",       "label": "t:options.h1" },
+            { "value": "h2",       "label": "t:options.h2" },
+            { "value": "h3",       "label": "t:options.h3" },
+            { "value": "h4",       "label": "t:options.h4" },
+            { "value": "h5",       "label": "t:options.h5" },
+            { "value": "h6",       "label": "t:options.h6" },
+            { "value": "custom",   "label": "t:options.custom" }
+          ],
+          "info": "t:info.edit_presets_in_theme_settings"
+        },
+        {
+          "type": "select",
+          "id": "font",
+          "label": "t:settings.font",
+          "options": [
+            { "value": "var(--font-body--family)",       "label": "t:options.body" },
+            { "value": "var(--font-subheading--family)", "label": "t:options.subheading" },
+            { "value": "var(--font-heading--family)",    "label": "t:options.heading" },
+            { "value": "var(--font-accent--family)",     "label": "t:options.accent" }
+          ],
+          "default": "var(--font-body--family)",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "font_size",
+          "label": "t:settings.size",
+          "options": [
+            { "value": "",        "label": "t:options.default" },
+            { "value": "0.75rem", "label": "12px" },
+            { "value": "0.875rem","label": "14px" },
+            { "value": "1rem",    "label": "16px" },
+            { "value": "1.125rem","label": "18px" },
+            { "value": "1.25rem", "label": "20px" },
+            { "value": "1.5rem",  "label": "24px" },
+            { "value": "2rem",    "label": "32px" },
+            { "value": "2.5rem",  "label": "40px" },
+            { "value": "3rem",    "label": "48px" }
+          ],
+          "default": "1rem",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "line_height",
+          "label": "t:settings.line_height",
+          "options": [
+            { "value": "tight",  "label": "t:options.tight" },
+            { "value": "normal", "label": "t:options.normal" },
+            { "value": "loose",  "label": "t:options.loose" }
+          ],
+          "default": "normal",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "letter_spacing",
+          "label": "t:settings.letter_spacing",
+          "options": [
+            { "value": "tight",  "label": "t:options.tight" },
+            { "value": "normal", "label": "t:options.normal" },
+            { "value": "loose",  "label": "t:options.loose" }
+          ],
+          "default": "normal",
+          "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+        },
+        {
+          "type": "select",
+          "id": "case",
+          "label": "t:settings.case",
+          "options": [
+            { "value": "none",      "label": "t:options.default" },
+            { "value": "lowercase", "label": "t:options.lowercase" },
+            { "value": "uppercase", "label": "t:options.uppercase" }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "t:settings.color",
+          "options": [
+            { "value": "var(--color-foreground)",         "label": "t:options.text" },
+            { "value": "var(--color-foreground-heading)", "label": "t:options.heading" },
+            { "value": "var(--color-primary)",            "label": "t:options.link" }
+          ],
+          "default": "var(--color-foreground)"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "item_gap",
+          "label": "Gap between icon and text",
+          "min": 0,
+          "max": 40,
+          "step": 2,
+          "unit": "px",
+          "default": 8
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:settings.alignment",
+      "options": [
+        { "value": "flex-start",    "label": "t:options.left" },
+        { "value": "center",        "label": "t:options.center" },
+        { "value": "flex-end",      "label": "t:options.right" },
+        { "value": "space-between", "label": "t:options.space_between" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between items",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "mobile_behavior",
+      "label": "Mobile behavior",
+      "options": [
+        { "value": "scroll", "label": "Scroll horizontally" },
+        { "value": "stack",  "label": "Stack vertically" }
+      ],
+      "default": "scroll"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "Section width",
+      "options": [
+        { "value": "page-width",  "label": "Page width" },
+        { "value": "full-width",  "label": "Full width" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "header",
+      "content": "t:content.colors"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_block_start",
+      "label": "t:settings.top",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_block_end",
+      "label": "t:settings.bottom",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 32
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon strip",
+      "blocks": [
+        { "type": "icon_text" },
+        { "type": "icon_text" },
+        { "type": "icon_text" },
+        { "type": "icon_text" }
+      ]
+    }
+  ]
+}
+{% endschema %}
