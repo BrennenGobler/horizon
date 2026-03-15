@@ -152,7 +152,7 @@
           "settings": {
             "image": "shopify://shop_images/oregon-icon.png",
             "icon_width": 32,
-            "text": "Made in Oregon",
+            "text": "Made in <strong>Oregon</strong>",
             "alignment": "left",
             "type_preset": "",
             "font": "var(--font-body--family)",
@@ -186,7 +186,7 @@
           "settings": {
             "image": "shopify://shop_images/shop-icon.png",
             "icon_width": 32,
-            "text": "Small Family Business",
+            "text": "Small <strong>Family</strong> Business",
             "alignment": "left",
             "type_preset": "",
             "font": "var(--font-body--family)",
@@ -201,8 +201,9 @@
         "icon_text_MqPHkw": {
           "type": "icon_text",
           "settings": {
-            "icon_width": 40,
-            "text": "Icon label",
+            "image": "shopify://shop_images/refund-icon.png",
+            "icon_width": 32,
+            "text": "<strong>30-Day</strong> Money Back Guarantee",
             "alignment": "left",
             "type_preset": "",
             "font": "var(--font-body--family)",
@@ -222,7 +223,7 @@
         "icon_text_MqPHkw"
       ],
       "custom_css": [
-        "strong {font-family: \"Lobster Two\"; font-style: italic;}"
+        "strong {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
       ],
       "name": "Icon strip",
       "settings": {
