@@ -472,7 +472,7 @@
       ],
       "custom_css": [
         ".spacing-style.layout-panel-flex.layout-panel-flex--row.section-content-wrapper.mobile-column {max-width: 1080px; margin: auto;}",
-        "strong {font-family: 'Lobster Two'; font-style: italic; text-transform: lowercase;}"
+        "strong {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
       ],
       "name": "SEO Section",
       "settings": {
@@ -782,7 +782,7 @@
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "scheme-2",
+        "color_scheme": "scheme-5",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
