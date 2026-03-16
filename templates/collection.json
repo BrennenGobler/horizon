@@ -720,8 +720,8 @@
                   "name": "t:names.text",
                   "settings": {
                     "text": "<p>These are our most frequently asked questions, but if you can't find an answer to what you're looking for, contact our support.</p>",
-                    "width": "fit-content",
-                    "max_width": "normal",
+                    "width": "100%",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -813,7 +813,7 @@
                         "heading": "What is the return policy?",
                         "open_by_default": false,
                         "icon": "none",
-                        "width": 20
+                        "width": 122
                       },
                       "blocks": {
                         "text_cmJe8R": {
