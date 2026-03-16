@@ -623,8 +623,8 @@
                   "name": "t:names.accordion",
                   "settings": {
                     "icon": "plus",
-                    "dividers": false,
-                    "type_preset": "h5",
+                    "dividers": true,
+                    "type_preset": "",
                     "inherit_color_scheme": true,
                     "color_scheme": "",
                     "border": "none",
