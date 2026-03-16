@@ -470,6 +470,9 @@
         "text_wpi4qQ",
         "text_bUeNVU"
       ],
+      "custom_css": [
+        ".spacing-style.layout-panel-flex.layout-panel-flex--row.section-content-wrapper.mobile-column {max-width: 1080px; margin: auto;}"
+      ],
       "name": "SEO Section",
       "settings": {
         "content_direction": "row",
@@ -762,9 +765,12 @@
         "text_dfRFNp",
         "accordion_CDaXQM"
       ],
+      "custom_css": [
+        ".spacing-style.layout-panel-flex.layout-panel-flex--row.section-content-wrapper.mobile-column {max-width: 1080px; margin: auto;}"
+      ],
       "name": "t:names.faq_section",
       "settings": {
-        "content_direction": "row",
+        "content_direction": "column",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
