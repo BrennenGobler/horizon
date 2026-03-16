@@ -83,7 +83,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "{{ closest.collection.description }}",
+                "text": "{{ closest.collection.metafields.custom.subtitle | metafield_tag }}",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -443,7 +443,7 @@
           "type": "text",
           "name": "SEO Description",
           "settings": {
-            "text": "{{ closest.collection.metafields.custom.seo_description | metafield_tag }}",
+            "text": "{{ closest.collection.description }}",
             "width": "100%",
             "max_width": "normal",
             "alignment": "left",
