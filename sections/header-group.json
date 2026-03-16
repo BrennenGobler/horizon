@@ -38,7 +38,7 @@
             "type_font_submenu_link": "body",
             "type_font_submenu_size": "0.875rem",
             "type_case_submenu_link": "none",
-            "menu_style": "collection_images",
+            "menu_style": "featured_collections",
             "featured_products_aspect_ratio": "4 / 5",
             "featured_collections_aspect_ratio": "16 / 9",
             "image_border_radius": 2,
