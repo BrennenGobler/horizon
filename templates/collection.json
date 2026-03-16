@@ -486,7 +486,7 @@
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -494,7 +494,7 @@
         "border_width": 1,
         "border_opacity": 100,
         "border_radius": 0,
-        "toggle_overlay": true,
+        "toggle_overlay": false,
         "overlay_color": "#f5f5f5",
         "overlay_style": "solid",
         "gradient_direction": "to top",
@@ -510,9 +510,9 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h3>Frequently asked questions</h3>",
-            "width": "fit-content",
+            "width": "100%",
             "max_width": "narrow",
-            "alignment": "left",
+            "alignment": "center",
             "type_preset": "h2",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
@@ -564,7 +564,7 @@
                   "settings": {
                     "text": "<p>Our goal is for every customer to be totally satisfied with their purchase. If this isn't the case, let us know and we'll do our best to work with you to make it right.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -766,7 +766,7 @@
         "accordion_CDaXQM"
       ],
       "custom_css": [
-        ".spacing-style.layout-panel-flex.layout-panel-flex--row.section-content-wrapper.mobile-column {max-width: 1080px; margin: auto;}"
+        ".spacing-style.accordion--dividers {max-width: 1080px;}"
       ],
       "name": "t:names.faq_section",
       "settings": {
@@ -775,13 +775,13 @@
         "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
+        "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 32,
         "section_width": "page-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-2",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -789,7 +789,7 @@
         "border_width": 1,
         "border_opacity": 100,
         "border_radius": 0,
-        "toggle_overlay": true,
+        "toggle_overlay": false,
         "overlay_color": "#f5f5f5",
         "overlay_style": "solid",
         "gradient_direction": "to top",
