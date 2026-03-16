@@ -215,13 +215,30 @@
             "color": "var(--color-foreground)",
             "item_gap": 8
           }
+        },
+        "icon_text_itD4Qb": {
+          "type": "icon_text",
+          "settings": {
+            "icon_width": 40,
+            "text": "Icon label",
+            "alignment": "left",
+            "type_preset": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "color": "var(--color-foreground)",
+            "item_gap": 8
+          }
         }
       },
       "block_order": [
         "icon_text_hnkNBP",
         "icon_text_eBFcnT",
         "icon_text_zGHQgY",
-        "icon_text_cy7FaV"
+        "icon_text_cy7FaV",
+        "icon_text_itD4Qb"
       ],
       "custom_css": [
         "strong {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
@@ -1094,7 +1111,9 @@
         "accordion_CDaXQM"
       ],
       "custom_css": [
-        ".spacing-style.accordion--dividers {max-width: 1080px; margin: auto;}"
+        ".spacing-style.accordion--dividers {max-width: 1080px; margin: auto;}",
+        ".accordion--dividers accordion-custom:first-child .details {border-block-start: calc(var(--style-border-width) * var(--show-fallback-borders)) solid var(--color-border); border-block-start: none;}",
+        ".accordion--dividers accordion-custom:last-child .details {border-block-end: calc(var(--style-border-width) * var(--show-fallback-borders)) solid var(--color-border); border-block-end: none;}"
       ],
       "name": "t:names.faq_section",
       "settings": {
