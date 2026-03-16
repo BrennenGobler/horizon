@@ -170,7 +170,7 @@
           "settings": {
             "image": "shopify://shop_images/razor-icon-wht.png",
             "icon_width": 32,
-            "text": "Formulated for Bald <strong>bros.</strong>",
+            "text": "Developed for Bald Bearded <strong>bros.</strong>",
             "alignment": "left",
             "type_preset": "custom",
             "font": "var(--font-subheading--family)",
