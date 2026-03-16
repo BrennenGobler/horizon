@@ -1035,7 +1035,8 @@
       "custom_css": [
         ".spacing-style.accordion--dividers {max-width: 1080px; margin: auto;}",
         ".accordion--dividers accordion-custom:first-child .details {border-block-start: calc( var(--style-border-width) * var(--show-fallback-borders) ) solid var(--color-border); border-block-start: none;}",
-        ".accordion--dividers accordion-custom:last-child .details {border-block-end: calc( var(--style-border-width) * var(--show-fallback-borders) ) solid var(--color-border); border-block-end: none;}"
+        ".accordion--dividers accordion-custom:last-child .details {border-block-end: calc( var(--style-border-width) * var(--show-fallback-borders) ) solid var(--color-border); border-block-end: none;}",
+        ".accordion .details__header {min-height: 60px;}"
       ],
       "name": "t:names.faq_section",
       "settings": {
