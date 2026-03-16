@@ -81,7 +81,7 @@
             },
             "text_UiQGPQ": {
               "type": "text",
-              "name": "t:names.text",
+              "name": "Description",
               "settings": {
                 "text": "{{ closest.collection.metafields.custom.subtitle | metafield_tag }}",
                 "width": "fit-content",
