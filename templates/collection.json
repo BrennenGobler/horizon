@@ -471,7 +471,8 @@
         "text_bUeNVU"
       ],
       "custom_css": [
-        ".spacing-style.layout-panel-flex.layout-panel-flex--row.section-content-wrapper.mobile-column {max-width: 1080px; margin: auto;}"
+        ".spacing-style.layout-panel-flex.layout-panel-flex--row.section-content-wrapper.mobile-column {max-width: 1080px; margin: auto;}",
+        "strong {font-family: 'Lobster Two'; font-style: italic; text-transform: lowercase;}"
       ],
       "name": "SEO Section",
       "settings": {
