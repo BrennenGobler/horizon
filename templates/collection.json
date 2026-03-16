@@ -228,7 +228,7 @@
       ],
       "name": "Icon strip",
       "settings": {
-        "alignment": "center",
+        "alignment": "space-evenly",
         "gap": 48,
         "mobile_behavior": "scroll",
         "section_width": "page-width",
