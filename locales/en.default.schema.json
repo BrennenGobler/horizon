@@ -699,6 +699,7 @@
     // Uniform style option for borders and overlays
     "solid": "Solid",
     "space_between": "Space between",
+    "space_evenly": "Space evenly",
     "spotify": "Spotify",
     "spotlight": "Spotlight",
     "square": "Square",

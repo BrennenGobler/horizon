@@ -1,0 +1,154 @@
+<div
+  class="
+    icon-strip
+    {% if block.settings.mobile_behavior == 'scroll' %} icon-strip--mobile-scroll{% endif %}
+    {% if block.settings.mobile_behavior == 'stack' %}  icon-strip--mobile-stack{% endif %}
+    {% if block.settings.mobile_behavior == 'stack_pairs' %} icon-strip--mobile-pairs{% endif %}
+  "
+  style="
+    --icon-strip-gap:       {{ block.settings.gap }}px;
+    --icon-strip-alignment: {{ block.settings.alignment }};
+  "
+  {{ block.shopify_attributes }}
+>
+  <div class="icon-strip__items">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+
+{% stylesheet %}
+  /* ── Items flex row ────────────────────────────────────────────── */
+  .icon-strip__items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: var(--icon-strip-gap, 32px);
+    justify-content: var(--icon-strip-alignment, center);
+    align-items: center;
+  }
+
+  /* ── Single item (icon + text) ─────────────────────────────────── */
+  .icon-strip__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--item-gap, 8px);
+    flex-shrink: 0;
+  }
+
+  /* ── Text ─────────────────────────────────────────────────────── */
+  .icon-strip__text {
+    color: var(--color, currentColor);
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  /* Consume typography-style variables only when custom preset is active */
+  .icon-strip__text--custom {
+    font-family: var(--font-family, inherit);
+    font-size: var(--font-size, inherit);
+    font-weight: var(--font-weight, inherit);
+    line-height: var(--line-height, inherit);
+    letter-spacing: var(--letter-spacing, normal);
+  }
+
+  /* ── Mobile ────────────────────────────────────────────────────── */
+  @media screen and (max-width: 749px) {
+    /* Stack: column layout */
+    .icon-strip--mobile-stack .icon-strip__items {
+      flex-direction: column;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    /* Scroll: scroll horizontally */
+    .icon-strip--mobile-scroll .icon-strip__items {
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      justify-content: flex-start;
+      padding-block-end: 8px;
+    }
+
+    /* Pairs: 2 items per row using grid */
+    .icon-strip--mobile-pairs .icon-strip__items {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .icon-strip--mobile-pairs .icon-strip__item {
+      flex-shrink: unset;
+      flex-wrap: wrap;
+    }
+
+    .icon-strip--mobile-pairs .icon-strip__text {
+      white-space: normal;
+      flex: 1 1 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Icon strip",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_icon_text"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:settings.alignment",
+      "options": [
+        { "value": "flex-start",    "label": "t:options.left" },
+        { "value": "center",        "label": "t:options.center" },
+        { "value": "flex-end",      "label": "t:options.right" },
+        { "value": "space-between", "label": "t:options.space_between" },
+        { "value": "space-evenly",  "label": "t:options.space_evenly" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between items",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "select",
+      "id": "mobile_behavior",
+      "label": "Mobile behavior",
+      "options": [
+        { "value": "scroll",      "label": "Scroll horizontally" },
+        { "value": "stack",       "label": "Stack vertically" },
+        { "value": "stack_pairs", "label": "Stack in pairs" }
+      ],
+      "default": "scroll"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon strip",
+      "category": "t:categories.basic",
+      "blocks": {
+        "item_1": { "type": "_icon_text" },
+        "item_2": { "type": "_icon_text" },
+        "item_3": { "type": "_icon_text" },
+        "item_4": { "type": "_icon_text" }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4"]
+    }
+  ]
+}
+{% endschema %}

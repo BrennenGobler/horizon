@@ -1,0 +1,202 @@
+<div
+  class="icon-strip__item"
+  style="--item-gap: {{ block.settings.item_gap }}px;"
+  {{ block.shopify_attributes }}
+>
+
+  {%- if block.settings.image != blank -%}
+    <div class="icon-strip__icon" style="--icon-width: {{ block.settings.icon_width }}px;">
+      {{
+        block.settings.image
+        | image_url: width: 200
+        | image_tag:
+          loading: 'lazy',
+          widths: '40, 60, 80, 100, 120, 160',
+          style: 'width: var(--icon-width); height: auto; display: block; flex-shrink: 0;'
+      }}
+    </div>
+  {%- endif -%}
+
+  {%- if block.settings.text != blank -%}
+    <div
+      class="
+        icon-strip__text
+        {% if block.settings.type_preset == 'custom' %}
+          icon-strip__text--custom
+        {% else %}
+          {{ block.settings.type_preset }}
+        {% endif %}
+      "
+      style="
+        {%- render 'typography-style', settings: block.settings -%}
+        text-transform: {{ block.settings.case }};
+        text-align: {{ block.settings.alignment }};
+      "
+    >
+      {{- block.settings.text -}}
+    </div>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Icon + text",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "icon_width",
+      "label": "Icon size",
+      "min": 16,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "Icon label"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:settings.alignment",
+      "options": [
+        { "value": "left",   "label": "t:options.left" },
+        { "value": "center", "label": "t:options.center" },
+        { "value": "right",  "label": "t:options.right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "t:content.typography"
+    },
+    {
+      "type": "select",
+      "id": "type_preset",
+      "label": "t:settings.preset",
+      "options": [
+        { "value": "",          "label": "t:options.default" },
+        { "value": "paragraph", "label": "t:options.paragraph" },
+        { "value": "h1",        "label": "t:options.h1" },
+        { "value": "h2",        "label": "t:options.h2" },
+        { "value": "h3",        "label": "t:options.h3" },
+        { "value": "h4",        "label": "t:options.h4" },
+        { "value": "h5",        "label": "t:options.h5" },
+        { "value": "h6",        "label": "t:options.h6" },
+        { "value": "custom",    "label": "t:options.custom" }
+      ],
+      "info": "t:info.edit_presets_in_theme_settings"
+    },
+    {
+      "type": "select",
+      "id": "font",
+      "label": "t:settings.font",
+      "options": [
+        { "value": "var(--font-body--family)",       "label": "t:options.body" },
+        { "value": "var(--font-subheading--family)", "label": "t:options.subheading" },
+        { "value": "var(--font-heading--family)",    "label": "t:options.heading" },
+        { "value": "var(--font-accent--family)",     "label": "t:options.accent" }
+      ],
+      "default": "var(--font-body--family)",
+      "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "font_size",
+      "label": "t:settings.size",
+      "options": [
+        { "value": "",         "label": "t:options.default" },
+        { "value": "0.75rem",  "label": "12px" },
+        { "value": "0.875rem", "label": "14px" },
+        { "value": "1rem",     "label": "16px" },
+        { "value": "1.125rem", "label": "18px" },
+        { "value": "1.25rem",  "label": "20px" },
+        { "value": "1.5rem",   "label": "24px" },
+        { "value": "2rem",     "label": "32px" },
+        { "value": "2.5rem",   "label": "40px" },
+        { "value": "3rem",     "label": "48px" }
+      ],
+      "default": "1rem",
+      "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "line_height",
+      "label": "t:settings.line_height",
+      "options": [
+        { "value": "tight",  "label": "t:options.tight" },
+        { "value": "normal", "label": "t:options.normal" },
+        { "value": "loose",  "label": "t:options.loose" }
+      ],
+      "default": "normal",
+      "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "letter_spacing",
+      "label": "t:settings.letter_spacing",
+      "options": [
+        { "value": "tight",  "label": "t:options.tight" },
+        { "value": "normal", "label": "t:options.normal" },
+        { "value": "loose",  "label": "t:options.loose" }
+      ],
+      "default": "normal",
+      "visible_if": "{{ block.settings.type_preset == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "case",
+      "label": "t:settings.case",
+      "options": [
+        { "value": "none",      "label": "t:options.default" },
+        { "value": "lowercase", "label": "t:options.lowercase" },
+        { "value": "uppercase", "label": "t:options.uppercase" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "color",
+      "label": "t:settings.color",
+      "options": [
+        { "value": "var(--color-foreground)",         "label": "t:options.text" },
+        { "value": "var(--color-foreground-heading)", "label": "t:options.heading" },
+        { "value": "var(--color-primary)",            "label": "t:options.link" }
+      ],
+      "default": "var(--color-foreground)"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "Gap between icon and text",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    }
+  ]
+}
+{% endschema %}
