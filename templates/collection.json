@@ -767,7 +767,7 @@
         "accordion_CDaXQM"
       ],
       "custom_css": [
-        ".spacing-style.accordion--dividers {max-width: 1080px;}"
+        ".spacing-style.accordion--dividers {max-width: 1080px; margin: auto;}"
       ],
       "name": "t:names.faq_section",
       "settings": {
