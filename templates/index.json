@@ -1089,8 +1089,8 @@
       ],
       "name": "t:names.layered_slideshow",
       "settings": {
-        "section_width": "full-width",
-        "height": "medium",
+        "section_width": "page-width",
+        "height": "large",
         "corner_radius": 0,
         "border_width": 1,
         "drop_shadow": false,
