@@ -622,9 +622,7 @@
       "block_order": [
         "text_NAwacM"
       ],
-      "custom_css": [
-        "h2 {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
-      ],
+      "custom_css": [],
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
