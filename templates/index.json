@@ -606,7 +606,7 @@
             "vertical_alignment_flex_direction_column": "flex-start",
             "gap": 12,
             "inherit_color_scheme": false,
-            "color_scheme": "",
+            "color_scheme": "scheme-5",
             "toggle_overlay": true,
             "overlay_color": "#00000000",
             "overlay_style": "solid",
