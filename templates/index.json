@@ -776,7 +776,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<ul><li>Citrus</li><li>Grapefruit</li><li>Champagne</li><li>Jasmine</li></ul>",
+                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Citrus</li><li>Grapefruit</li><li>Champagne</li><li>Jasmine</li></ul>",
                     "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
