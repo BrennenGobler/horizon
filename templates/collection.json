@@ -811,7 +811,7 @@
                       "type": "_accordion-row",
                       "name": "t:names.accordion_row",
                       "settings": {
-                        "heading": "Do you have discounts?",
+                        "heading": "Do you have discount codes?",
                         "open_by_default": false,
                         "icon": "none",
                         "width": 20
