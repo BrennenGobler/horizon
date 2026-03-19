@@ -657,6 +657,7 @@
       "blocks": {
         "slide_XGExKL": {
           "type": "_slide",
+          "name": "Amped",
           "settings": {
             "media_type_1": "image",
             "image_1": "shopify://shop_images/bald-beard-bros-amped-scent-profile-1920x1080.jpg",
@@ -827,6 +828,7 @@
         },
         "slide_QLtRfH": {
           "type": "_slide",
+          "name": "Cinder",
           "settings": {
             "media_type_1": "image",
             "image_1": "shopify://shop_images/bald-beard-bros-cinder-scent-profile-1920x1080.jpg",
@@ -997,6 +999,7 @@
         },
         "slide_4TG6JQ": {
           "type": "_slide",
+          "name": "Interstellar",
           "settings": {
             "media_type_1": "image",
             "image_1": "shopify://shop_images/bald-beard-bros-interstellar-scent-profile-1920x1080.jpg",
@@ -1164,12 +1167,184 @@
             "group_WKtfAm",
             "button_qQXFCb"
           ]
+        },
+        "slide_pJwCkJ": {
+          "type": "_slide",
+          "name": "Valley",
+          "settings": {
+            "media_type_1": "image",
+            "image_1": "shopify://shop_images/bald-beard-bros-valley-scent-profile-1920x1080.jpg",
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 24,
+            "padding-block-end": 48,
+            "padding-inline-start": 4,
+            "padding-inline-end": 4
+          },
+          "blocks": {
+            "text_3XtKwi": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2><strong>Valley</strong></h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-accent--family)",
+                "font_size": "2.5rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "group_MNf4KB": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "row",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "text_AyjYhq": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p>This is <strong>THE</strong> everyday grab it without thinking about it scent. It's perfect for everything. Smells of a sweet lightly wooded <strong>valley</strong>-if that makes sense. You won't go wrong with this scent, <strong>99%</strong> of customers absolutely love <strong>Valley</strong>.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "text_KwUge8": {
+                  "type": "text",
+                  "name": "t:names.text",
+                  "settings": {
+                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Sandalwood</li><li>Vanilla</li><li>Amber</li></ul>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": true,
+                    "background_color": "#f5f5f5",
+                    "corner_radius": 2,
+                    "padding-block-start": 24,
+                    "padding-block-end": 24,
+                    "padding-inline-start": 24,
+                    "padding-inline-end": 24
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_AyjYhq",
+                "text_KwUge8"
+              ]
+            },
+            "button_cXYjc7": {
+              "type": "button",
+              "settings": {
+                "label": "<strong>Shop Valley</strong>",
+                "link": "shopify://collections/all",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_3XtKwi",
+            "group_MNf4KB",
+            "button_cXYjc7"
+          ]
         }
       },
       "block_order": [
         "slide_XGExKL",
         "slide_QLtRfH",
-        "slide_4TG6JQ"
+        "slide_4TG6JQ",
+        "slide_pJwCkJ"
       ],
       "custom_css": [
         "strong {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
