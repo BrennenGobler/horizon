@@ -725,7 +725,7 @@
                   "type": "icon",
                   "name": "t:names.icon",
                   "settings": {
-                    "icon": "price_tag",
+                    "icon": "none",
                     "image_upload": "shopify://shop_images/amped-scent-icon.png",
                     "width": 48,
                     "link": "",
@@ -954,7 +954,7 @@
                   "type": "icon",
                   "name": "t:names.icon",
                   "settings": {
-                    "icon": "price_tag",
+                    "icon": "none",
                     "image_upload": "shopify://shop_images/cinder-scent-icon.png",
                     "width": 48,
                     "link": "",
@@ -1183,7 +1183,7 @@
                   "type": "icon",
                   "name": "t:names.icon",
                   "settings": {
-                    "icon": "price_tag",
+                    "icon": "none",
                     "image_upload": "shopify://shop_images/intersteallar-scent-icon.png",
                     "width": 48,
                     "link": "",
@@ -1412,7 +1412,7 @@
                   "type": "icon",
                   "name": "t:names.icon",
                   "settings": {
-                    "icon": "price_tag",
+                    "icon": "none",
                     "image_upload": "shopify://shop_images/valley-scent-icon.png",
                     "width": 48,
                     "link": "",
@@ -1641,7 +1641,7 @@
                   "type": "icon",
                   "name": "t:names.icon",
                   "settings": {
-                    "icon": "price_tag",
+                    "icon": "none",
                     "image_upload": "shopify://shop_images/wildwood-scent-icon.png",
                     "width": 48,
                     "link": "",
