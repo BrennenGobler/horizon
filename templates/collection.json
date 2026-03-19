@@ -774,7 +774,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
-                "border_radius": 2,
+                "border_radius": 0,
                 "toggle_overlay": true,
                 "overlay_color": "#2828280d",
                 "overlay_style": "solid",
