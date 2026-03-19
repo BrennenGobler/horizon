@@ -924,7 +924,7 @@
                   "settings": {
                     "text": "<p>The <strong>Cinder</strong> scent takes a classic take on an outdoorsy <strong>wooded forest</strong> but with a <strong>smokey twist</strong>. The primary notes make this scent perfect for both professional and everyday activities.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1095,7 +1095,7 @@
                   "settings": {
                     "text": "<p>This is for the \"professional businessman\"-or whatever that is supposed to mean. It's a traditional take on \"<strong>cologne</strong>\" with <strong>muskiness</strong> and a hint of <strong>sweet sugar</strong>. We would use this scent in a professional environment or on a <strong>date night</strong>.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1121,7 +1121,7 @@
                   "settings": {
                     "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Musk</li><li>Warm Sugar</li><li>Cologne</li></ul>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1266,7 +1266,7 @@
                   "settings": {
                     "text": "<p>This is <strong>THE</strong> everyday grab it without thinking about it scent. It's perfect for everything. Smells of a sweet lightly wooded <strong>valley</strong>-if that makes sense. You won't go wrong with this scent, <strong>99%</strong> of customers absolutely love <strong>Valley</strong>.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1292,7 +1292,7 @@
                   "settings": {
                     "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Sandalwood</li><li>Vanilla</li><li>Amber</li></ul>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1437,7 +1437,7 @@
                   "settings": {
                     "text": "<p>What else do we say about this one? It's for the <strong>outdoorsmen</strong>. Smells of a typical <strong>damp Oregon forest</strong> with notes of <strong>ginger</strong> and <strong>black pepper</strong> to give it a slightly more <strong>complex</strong> edge.</p>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -1463,7 +1463,7 @@
                   "settings": {
                     "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Sandalwood</li><li>Vanilla</li><li>Amber</li></ul>",
                     "width": "100%",
-                    "max_width": "normal",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
