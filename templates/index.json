@@ -1751,7 +1751,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Sandalwood</li><li>Vanilla</li><li>Amber</li></ul>",
+                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Cedarwood</li><li>Black Pepper</li><li>Ginger</li></ul>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
