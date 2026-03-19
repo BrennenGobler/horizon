@@ -807,6 +807,46 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {
+                    "accordion_row_Ar9hPX": {
+                      "type": "_accordion-row",
+                      "name": "t:names.accordion_row",
+                      "settings": {
+                        "heading": "Do you have discounts?",
+                        "open_by_default": false,
+                        "icon": "none",
+                        "width": 20
+                      },
+                      "blocks": {
+                        "text_fxWACr": {
+                          "type": "text",
+                          "settings": {
+                            "text": "<p>We <strong>DO NOT</strong> do discounts. We don't do discounts because we don't want our customers wasting time searching for codes online. We price our products at the best price we can, and the only discount on our site is through buying bundles and subscribing.</p>",
+                            "width": "100%",
+                            "max_width": "normal",
+                            "alignment": "left",
+                            "type_preset": "rte",
+                            "font": "var(--font-body--family)",
+                            "font_size": "1rem",
+                            "line_height": "normal",
+                            "letter_spacing": "normal",
+                            "case": "none",
+                            "wrap": "pretty",
+                            "color": "var(--color-foreground)",
+                            "background": false,
+                            "background_color": "#00000026",
+                            "corner_radius": 0,
+                            "padding-block-start": 0,
+                            "padding-block-end": 0,
+                            "padding-inline-start": 0,
+                            "padding-inline-end": 0
+                          },
+                          "blocks": {}
+                        }
+                      },
+                      "block_order": [
+                        "text_fxWACr"
+                      ]
+                    },
                     "accordion_row_MgYwzT": {
                       "type": "_accordion-row",
                       "settings": {
@@ -1010,6 +1050,7 @@
                     }
                   },
                   "block_order": [
+                    "accordion_row_Ar9hPX",
                     "accordion_row_MgYwzT",
                     "accordion_row_EyFdta",
                     "accordion_row_rBhA8A",
