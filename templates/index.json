@@ -953,6 +953,9 @@
         "slide_XGExKL",
         "slide_LHHJ9n"
       ],
+      "custom_css": [
+        "strong {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
+      ],
       "name": "t:names.slideshow_inset",
       "settings": {
         "display_mode": "with_hints",
