@@ -684,7 +684,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h2>amped</h2>",
+                "text": "<h2><strong>Amped</strong></h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -833,7 +833,7 @@
             "button_7nwYEh": {
               "type": "button",
               "settings": {
-                "label": "<strong>Shop amped</strong>",
+                "label": "<strong>Shop Amped</strong>",
                 "link": "shopify://collections/all",
                 "open_in_new_tab": false,
                 "style_class": "button",
