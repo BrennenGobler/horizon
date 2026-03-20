@@ -867,7 +867,7 @@
               "type": "button",
               "settings": {
                 "label": "<strong>Shop Amped</strong>",
-                "link": "shopify://collections/all",
+                "link": "shopify://collections/amped-citrus-scented-bald-beard-bros-products",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
