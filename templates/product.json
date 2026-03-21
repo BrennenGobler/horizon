@@ -377,7 +377,7 @@
                     "text_d4RQzR": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>We will work quickly to ship your order as soon as possible. Once your order has shipped, you will receive an email with further information. Delivery times vary depending on your location.</p>",
+                        "text": "{{ closest.product.metafields.custom.ingredients | metafield_tag }}",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
@@ -416,7 +416,7 @@
                     "text_NmdPnM": {
                       "type": "text",
                       "settings": {
-                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                        "text": "{{ closest.product.metafields.custom.faq | metafield_tag }}",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
