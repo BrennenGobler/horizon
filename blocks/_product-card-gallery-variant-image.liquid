@@ -1,0 +1,290 @@
+{%- doc -%}
+  Custom product card gallery block for variant-image collection templates.
+  Reads collection.metafields.custom.variant_image_display (single_line_text) and
+  displays the matching variant's featured image if found; otherwise falls back to
+  the standard card-gallery snippet behaviour.
+
+{%- enddoc -%}
+
+{% liquid
+  assign product = closest.product
+
+  # Get the variant name to match from the collection metafield
+  assign variant_display_name = collection.metafields.custom.variant_image_display.value | strip
+
+  # Try to find a variant whose title matches the metafield value
+  assign override_variant = nil
+  assign override_image = nil
+  if variant_display_name != blank and product != blank
+    for variant in product.variants
+      if variant.title == variant_display_name and variant.featured_image != blank
+        assign override_variant = variant
+        assign override_image = variant.featured_image
+        break
+      endif
+    endfor
+  endif
+
+  assign block_settings = block.settings
+
+  # Calculate aspect ratio for the gallery container
+  assign ratio = '1'
+  case block_settings.image_ratio
+    when 'landscape'
+      assign ratio = '16 / 9'
+    when 'portrait'
+      assign ratio = '4 / 5'
+    when 'square'
+      assign ratio = '1'
+    when 'adapt'
+      if override_image != nil
+        assign ratio = override_image.aspect_ratio | default: '1'
+      else
+        assign ratio = product.featured_media.preview_image.aspect_ratio | default: '1'
+      endif
+  endcase
+
+  assign card_alt = override_image.alt | default: product.title | escape
+%}
+
+{%- comment -%} Badges and quick-add — identical to _product-card-gallery.liquid {%- endcomment -%}
+{% capture badge_and_quickadd %}
+  {% unless product == blank %}
+    <div
+      class="product-badges product-badges--{{ settings.badge_position }}"
+      style="
+        --badge-border-radius: {{ settings.badge_corner_radius }}px;
+        --badge-font-family: var(--font-{{ settings.badge_font_family }}--family); --badge-font-weight: var(--font-{{ settings.badge_font_family }}--weight); --badge-text-transform: {{ settings.badge_text_transform }};
+      "
+    >
+      {%- if product.available == false or product.compare_at_price > product.price -%}
+        <div
+          class="
+            product-badges__badge product-badges__badge--rectangle
+            {% if product.available == false %} color-{{ settings.badge_sold_out_color_scheme }}{% elsif product.compare_at_price > product.price %} color-{{ settings.badge_sale_color_scheme }}{% endif %}
+          "
+        >
+          {%- if product.available == false -%}
+            {{ 'content.product_badge_sold_out' | t }}
+          {%- elsif product.compare_at_price > product.price -%}
+            {{ 'content.product_badge_sale' | t }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+    {% if settings.quick_add or settings.mobile_quick_add %}
+      {% render 'quick-add', product: product, section_id: section.id %}
+    {% endif %}
+  {% endunless %}
+{% endcapture %}
+
+{% if override_image != nil %}
+  {%- comment -%}
+    Render a card-gallery-compatible wrapper with the variant image as the primary image.
+    The structure mirrors card-gallery.liquid so styles and transitions apply correctly.
+  {%- endcomment -%}
+  <div
+    ref="cardGallery"
+    class="card-gallery card-gallery-{{ block.id }} spacing-style border-style"
+    style="
+      {% render 'border-override', settings: block_settings %}
+      {% render 'spacing-style', settings: block_settings %}
+      --gallery-aspect-ratio: {{ ratio }};
+    "
+    data-product-id="{{ product.id }}"
+    data-image-ratio="{{ block_settings.image_ratio }}"
+    data-variant-url="{{ override_variant.url }}"
+    {% if settings.transition_to_main_product %}
+      data-view-transition-to-main-product
+    {% endif %}
+    {{ block.shopify_attributes }}
+  >
+    <a
+      class="contents"
+      ref="cardGalleryLink"
+      href="{{ override_variant.url }}"
+      aria-label="{{ product.title | escape }}"
+    >
+      <div class="product-media-container media-fit product-media-container--image">
+        <div class="product-media" style="--ratio: {{ override_image.aspect_ratio }}">
+          {{
+            override_image
+            | image_url: width: 3840
+            | image_tag:
+              widths: '240, 352, 832, 1200, 1600, 1920',
+              alt: card_alt,
+              sizes: '(min-width: 750px) 50vw, 100vw',
+              loading: 'lazy',
+              class: 'product-media__image'
+          }}
+        </div>
+      </div>
+    </a>
+    {{ badge_and_quickadd }}
+  </div>
+
+{% else %}
+  {%- comment -%} No matching variant — delegate to the standard card-gallery snippet {%- endcomment -%}
+  {% capture children %}{{ badge_and_quickadd }}{% endcapture %}
+  {% render 'card-gallery', children: children %}
+{% endif %}
+
+{% javascript %}
+  document.querySelectorAll('.card-gallery[data-variant-url]').forEach((gallery) => {
+    const variantUrl = gallery.dataset.variantUrl;
+    if (!variantUrl) return;
+    const productCard = gallery.closest('product-card');
+    if (!productCard) return;
+    const cardLink = productCard.querySelector('.product-card__link');
+    if (cardLink) cardLink.href = variantUrl;
+  });
+{% endjavascript %}
+
+{%- comment -%} Title shown in zoom-out grid view — matches _product-card-gallery.liquid {%- endcomment -%}
+<div class="product-grid-view-zoom-out--details">
+  {% if product == blank %}
+    <h3 class="h4">{{ 'content.product_card_placeholder' | t }}</h3>
+  {% else %}
+    <h3 class="h4">{{ product.title }}</h3>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "t:names.product_image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.resource_reference_product_media"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:options.auto"
+        },
+        {
+          "value": "portrait",
+          "label": "t:options.portrait"
+        },
+        {
+          "value": "square",
+          "label": "t:options.square"
+        },
+        {
+          "value": "landscape",
+          "label": "t:options.landscape"
+        }
+      ],
+      "default": "portrait",
+      "label": "t:settings.aspect_ratio",
+      "info": "t:info.aspect_ratio_adjusted"
+    },
+    {
+      "type": "header",
+      "content": "t:content.borders"
+    },
+    {
+      "type": "select",
+      "id": "border",
+      "label": "t:settings.style",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:options.none"
+        },
+        {
+          "value": "solid",
+          "label": "t:options.solid"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:settings.thickness",
+      "default": 1,
+      "visible_if": "{{ block.settings.border != 'none' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "t:settings.opacity",
+      "default": 100,
+      "visible_if": "{{ block.settings.border != 'none' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "t:settings.border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_card_media",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
