@@ -473,10 +473,10 @@
         "padding-block-end": 24
       }
     },
-    "slideshow_APCHyb": {
+    "slideshow_x8aTDd": {
       "type": "slideshow",
       "blocks": {
-        "slide_DBehHB": {
+        "slide_bqMLkM": {
           "type": "_slide",
           "name": "Amped",
           "settings": {
@@ -502,33 +502,91 @@
             "padding-inline-end": 4
           },
           "blocks": {
-            "text_UmjwpF": {
-              "type": "text",
-              "name": "t:names.heading",
+            "group_J6wP4V": {
+              "type": "group",
+              "name": "t:names.group",
               "settings": {
-                "text": "<h2><strong>Amped</strong></h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-accent--family)",
-                "font_size": "2.5rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
+              "blocks": {
+                "icon_HakXhB": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "none",
+                    "image_upload": "shopify://shop_images/amped-scent-icon.png",
+                    "width": 48,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_kGzbBW": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2><strong>Amped</strong></h2>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "custom",
+                    "font": "var(--font-accent--family)",
+                    "font_size": "2.5rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_HakXhB",
+                "text_kGzbBW"
+              ]
             },
-            "group_EWeCDm": {
+            "group_gQTLAW": {
               "type": "group",
               "name": "t:names.group",
               "settings": {
@@ -568,7 +626,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_AE4Xre": {
+                "text_qzne8H": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
@@ -594,11 +652,11 @@
                   },
                   "blocks": {}
                 },
-                "text_E3K8Um": {
+                "text_bnHWkF": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Citrus</li><li>Grapefruit</li><li>Champagne</li><li>Jasmine</li></ul>",
+                    "text": "<p><span style=\"text-decoration:underline\"><strong>What you smell:</strong></span></p><ul><li>Citrus</li><li>Grapefruit</li><li>Champagne</li><li>Jasmine</li></ul>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -622,15 +680,15 @@
                 }
               },
               "block_order": [
-                "text_AE4Xre",
-                "text_E3K8Um"
+                "text_qzne8H",
+                "text_bnHWkF"
               ]
             },
-            "button_4jLaGK": {
+            "button_nWaWtE": {
               "type": "button",
               "settings": {
                 "label": "<strong>Shop Amped</strong>",
-                "link": "shopify://collections/all",
+                "link": "shopify://collections/amped-citrus-scented-bald-beard-bros-products",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -642,12 +700,12 @@
             }
           },
           "block_order": [
-            "text_UmjwpF",
-            "group_EWeCDm",
-            "button_4jLaGK"
+            "group_J6wP4V",
+            "group_gQTLAW",
+            "button_nWaWtE"
           ]
         },
-        "slide_w9qxGN": {
+        "slide_7GiUHQ": {
           "type": "_slide",
           "name": "Cinder",
           "settings": {
@@ -673,33 +731,91 @@
             "padding-inline-end": 4
           },
           "blocks": {
-            "text_TVpbWJ": {
-              "type": "text",
-              "name": "t:names.heading",
+            "group_FjM8Ew": {
+              "type": "group",
+              "name": "t:names.group",
               "settings": {
-                "text": "<h2><strong>Cinder</strong></h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-accent--family)",
-                "font_size": "2.5rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
+              "blocks": {
+                "icon_yRMyzD": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "none",
+                    "image_upload": "shopify://shop_images/cinder-scent-icon.png",
+                    "width": 48,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_C9xrx7": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2><strong>Cinder</strong></h2>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "custom",
+                    "font": "var(--font-accent--family)",
+                    "font_size": "2.5rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_yRMyzD",
+                "text_C9xrx7"
+              ]
             },
-            "group_RHXGNd": {
+            "group_8D974G": {
               "type": "group",
               "name": "t:names.group",
               "settings": {
@@ -739,7 +855,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_NkzGVn": {
+                "text_rjtdMz": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
@@ -765,11 +881,11 @@
                   },
                   "blocks": {}
                 },
-                "text_CBefy4": {
+                "text_aUETwU": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Tobacco</li><li>Bay Leaf</li><li>Fir Needle</li></ul>",
+                    "text": "<p><span style=\"text-decoration:underline\"><strong>What you smell:</strong></span></p><ul><li>Tobacco</li><li>Bay Leaf</li><li>Fir Needle</li></ul>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -793,11 +909,11 @@
                 }
               },
               "block_order": [
-                "text_NkzGVn",
-                "text_CBefy4"
+                "text_rjtdMz",
+                "text_aUETwU"
               ]
             },
-            "button_iVramA": {
+            "button_bERebC": {
               "type": "button",
               "settings": {
                 "label": "<strong>Shop Cinder</strong>",
@@ -813,12 +929,12 @@
             }
           },
           "block_order": [
-            "text_TVpbWJ",
-            "group_RHXGNd",
-            "button_iVramA"
+            "group_FjM8Ew",
+            "group_8D974G",
+            "button_bERebC"
           ]
         },
-        "slide_JdpmaE": {
+        "slide_6taq3m": {
           "type": "_slide",
           "name": "Interstellar",
           "settings": {
@@ -844,33 +960,91 @@
             "padding-inline-end": 4
           },
           "blocks": {
-            "text_MRLJXm": {
-              "type": "text",
-              "name": "t:names.heading",
+            "group_yBCWRW": {
+              "type": "group",
+              "name": "t:names.group",
               "settings": {
-                "text": "<h2><strong>Interstellar</strong></h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-accent--family)",
-                "font_size": "2.5rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
+              "blocks": {
+                "icon_EG7Bd3": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "none",
+                    "image_upload": "shopify://shop_images/interstellar-scent-icon.png",
+                    "width": 48,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_BygWWe": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2><strong>Interstellar</strong></h2>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "custom",
+                    "font": "var(--font-accent--family)",
+                    "font_size": "2.5rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_EG7Bd3",
+                "text_BygWWe"
+              ]
             },
-            "group_LFKFNV": {
+            "group_iR4nef": {
               "type": "group",
               "name": "t:names.group",
               "settings": {
@@ -910,7 +1084,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_rkMFhT": {
+                "text_NxYHeW": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
@@ -936,11 +1110,11 @@
                   },
                   "blocks": {}
                 },
-                "text_ER4WAa": {
+                "text_DcAWcq": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Musk</li><li>Warm Sugar</li><li>Cologne</li></ul>",
+                    "text": "<p><span style=\"text-decoration:underline\"><strong>What you smell:</strong></span></p><ul><li>Musk</li><li>Warm Sugar</li><li>Cologne</li></ul>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -964,11 +1138,11 @@
                 }
               },
               "block_order": [
-                "text_rkMFhT",
-                "text_ER4WAa"
+                "text_NxYHeW",
+                "text_DcAWcq"
               ]
             },
-            "button_knL8YE": {
+            "button_M6PdgL": {
               "type": "button",
               "settings": {
                 "label": "<strong>Shop Interstellar</strong>",
@@ -984,12 +1158,12 @@
             }
           },
           "block_order": [
-            "text_MRLJXm",
-            "group_LFKFNV",
-            "button_knL8YE"
+            "group_yBCWRW",
+            "group_iR4nef",
+            "button_M6PdgL"
           ]
         },
-        "slide_FLDBnY": {
+        "slide_ycxxyT": {
           "type": "_slide",
           "name": "Valley",
           "settings": {
@@ -1015,33 +1189,91 @@
             "padding-inline-end": 4
           },
           "blocks": {
-            "text_BBAdGm": {
-              "type": "text",
-              "name": "t:names.heading",
+            "group_y9nxYT": {
+              "type": "group",
+              "name": "t:names.group",
               "settings": {
-                "text": "<h2><strong>Valley</strong></h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-accent--family)",
-                "font_size": "2.5rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
+              "blocks": {
+                "icon_NWKafc": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "none",
+                    "image_upload": "shopify://shop_images/valley-scent-icon.png",
+                    "width": 48,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_zdFmbH": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2><strong>Valley</strong></h2>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "custom",
+                    "font": "var(--font-accent--family)",
+                    "font_size": "2.5rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_NWKafc",
+                "text_zdFmbH"
+              ]
             },
-            "group_ecRhUj": {
+            "group_Fm9jHy": {
               "type": "group",
               "name": "t:names.group",
               "settings": {
@@ -1081,7 +1313,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_dmC9h4": {
+                "text_QAzmUy": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
@@ -1107,11 +1339,11 @@
                   },
                   "blocks": {}
                 },
-                "text_YBHC3H": {
+                "text_Uz9jNF": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Sandalwood</li><li>Vanilla</li><li>Amber</li></ul>",
+                    "text": "<p><span style=\"text-decoration:underline\"><strong>What you smell:</strong></span></p><ul><li>Sandalwood</li><li>Vanilla</li><li>Amber</li></ul>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1135,11 +1367,11 @@
                 }
               },
               "block_order": [
-                "text_dmC9h4",
-                "text_YBHC3H"
+                "text_QAzmUy",
+                "text_Uz9jNF"
               ]
             },
-            "button_4Gc4kK": {
+            "button_7zqHJd": {
               "type": "button",
               "settings": {
                 "label": "<strong>Shop Valley</strong>",
@@ -1155,12 +1387,12 @@
             }
           },
           "block_order": [
-            "text_BBAdGm",
-            "group_ecRhUj",
-            "button_4Gc4kK"
+            "group_y9nxYT",
+            "group_Fm9jHy",
+            "button_7zqHJd"
           ]
         },
-        "slide_bWJDXX": {
+        "slide_CcEnig": {
           "type": "_slide",
           "name": "Wildwood",
           "settings": {
@@ -1186,33 +1418,91 @@
             "padding-inline-end": 4
           },
           "blocks": {
-            "text_krwrb6": {
-              "type": "text",
-              "name": "t:names.heading",
+            "group_NNCkP7": {
+              "type": "group",
+              "name": "t:names.group",
               "settings": {
-                "text": "<h2><strong>Wildwood</strong></h2>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "custom",
-                "font": "var(--font-accent--family)",
-                "font_size": "2.5rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "content_direction": "row",
+                "vertical_on_mobile": false,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
+              "blocks": {
+                "icon_bhjLzp": {
+                  "type": "icon",
+                  "name": "t:names.icon",
+                  "settings": {
+                    "icon": "none",
+                    "image_upload": "shopify://shop_images/wildwood-scent-icon.png",
+                    "width": 48,
+                    "link": "",
+                    "open_in_new_tab": false
+                  },
+                  "blocks": {}
+                },
+                "text_bmFCd8": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h2><strong>Wildwood</strong></h2>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "custom",
+                    "font": "var(--font-accent--family)",
+                    "font_size": "2.5rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "icon_bhjLzp",
+                "text_bmFCd8"
+              ]
             },
-            "group_dDU3Ej": {
+            "group_Bqjf4P": {
               "type": "group",
               "name": "t:names.group",
               "settings": {
@@ -1252,7 +1542,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_nkPMGt": {
+                "text_abncaL": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
@@ -1278,11 +1568,11 @@
                   },
                   "blocks": {}
                 },
-                "text_LyFw8m": {
+                "text_etkarf": {
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><span style=\"text-decoration:underline\"><strong>Primary Notes:</strong></span></p><ul><li>Sandalwood</li><li>Vanilla</li><li>Amber</li></ul>",
+                    "text": "<p><span style=\"text-decoration:underline\"><strong>What you smell:</strong></span></p><ul><li>Cedarwood</li><li>Black Pepper</li><li>Ginger</li></ul>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
@@ -1306,11 +1596,11 @@
                 }
               },
               "block_order": [
-                "text_nkPMGt",
-                "text_LyFw8m"
+                "text_abncaL",
+                "text_etkarf"
               ]
             },
-            "button_RLtK9g": {
+            "button_Gqfz4N": {
               "type": "button",
               "settings": {
                 "label": "<strong>Shop Wildwood</strong>",
@@ -1326,18 +1616,18 @@
             }
           },
           "block_order": [
-            "text_krwrb6",
-            "group_dDU3Ej",
-            "button_RLtK9g"
+            "group_NNCkP7",
+            "group_Bqjf4P",
+            "button_Gqfz4N"
           ]
         }
       },
       "block_order": [
-        "slide_DBehHB",
-        "slide_w9qxGN",
-        "slide_JdpmaE",
-        "slide_FLDBnY",
-        "slide_bWJDXX"
+        "slide_bqMLkM",
+        "slide_7GiUHQ",
+        "slide_6taq3m",
+        "slide_ycxxyT",
+        "slide_CcEnig"
       ],
       "custom_css": [
         "strong {font-family: \"Lobster Two\"; font-style: italic; text-transform: lowercase;}"
@@ -2033,7 +2323,7 @@
     "icon_strip_GUFHM4",
     "main",
     "section_AqcLM8",
-    "slideshow_APCHyb",
+    "slideshow_x8aTDd",
     "section_aTzX6m",
     "section_FmmYpP"
   ]
