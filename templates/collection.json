@@ -242,11 +242,10 @@
       "blocks": {
         "filters": {
           "type": "filters",
-          "disabled": true,
           "static": true,
           "settings": {
             "enable_filtering": true,
-            "filter_style": "vertical",
+            "filter_style": "horizontal",
             "filter_width": "centered",
             "text_label_case": "uppercase",
             "show_swatch_label": false,
