@@ -137,6 +137,8 @@
     if (!productCard) return;
     const cardLink = productCard.querySelector('.product-card__link');
     if (cardLink) cardLink.href = variantUrl;
+    const titleLink = productCard.querySelector('[ref="productTitleLink"]');
+    if (titleLink) titleLink.href = variantUrl;
   });
 {% endjavascript %}
 
