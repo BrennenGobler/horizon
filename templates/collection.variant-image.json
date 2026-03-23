@@ -325,7 +325,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>{{ closest.collection.metafields.custom.variant_image_display.value }}</strong> + 5 other scents available</p>",
+                "text": "<p><strong>{{ closest.collection.metafields.custom.variant_image_display.value }}</strong> + 5 other scents</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
